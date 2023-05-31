@@ -79,6 +79,7 @@ function save_profile() {
     APPEND "# [ User Account ] #"
     APPEND "export USERNAME='${USERNAME}'"
     APPEND "export PASSWORD='${PASSWORD}'"
+    APPEND "export ADMIN=${ADMIN:-0} # Set to 1 to enable Admin access"
     APPEND ""
     APPEND "# [ Bank ] #"
     APPEND "export bank_1_gold=${bank_1_gold:-0}"
