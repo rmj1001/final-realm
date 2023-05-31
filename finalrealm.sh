@@ -321,7 +321,8 @@ function login() {
     HEADER
     read -r -p "Username > " USERNAME
 
-    export PROFILE_FILE="./.profiles/$(LOWERCASE ${USERNAME}).sh"
+    export PROFILES="./.profiles"
+    export PROFILE_FILE="${PROFILES}/$(LOWERCASE ${USERNAME}).sh"
 
     # If profile file does not exist, cancel login.
     [[ ! -e "${PROFILE_FILE}" ]] && {
@@ -356,7 +357,8 @@ function register() {
     HEADER
     read -r -p "Username > " USERNAME
 
-    export PROFILE_FILE="./.profiles/$(LOWERCASE ${USERNAME}).sh"
+    export PROFILES="./.profiles"
+    export PROFILE_FILE="${PROFILES}/$(LOWERCASE ${USERNAME}).sh"
 
     # If profile file exists, cancel registration.
     [[ -e "${PROFILE_FILE}" ]] && {
@@ -364,6 +366,9 @@ function register() {
         PAUSE
         first_menu
     }
+
+    # Create profiles folder if it doesn't exist.
+    [[ ! -e "${PROFILES}" ]] && mkdir "${PROFILES}"
 
     read -r -s -p "Password (cAsE sEnsiTivE) > " password1
     PRINT
