@@ -1,14 +1,177 @@
 #!/usr/bin/env bash
 
 ###################################################
+# [ Important Functions ] #
+###################################################
+# Description: Replacement for 'echo'
+# Usage:  PRINT "text"
+# Returns: string
+function PRINT() {
+    printf "%b\n" "${@}"
+}
+
+# Description: 'echo' replacement w/o newline
+# Usage:  NPRINT "text"
+# Returns: string
+function NPRINT() {
+    printf "%b" "${@}"
+}
+
+# Description: Pauses script execution until the user presses ENTER
+# Usage:  PAUSE
+# Returns: int
+function PAUSE() {
+    NPRINT "Press <ENTER> to continue..."
+    read -r
+}
+
+# Description: Sets the terminal window title
+# Usage:  TITLE "test"
+# Returns: void
+function TITLE() {
+    NPRINT "\033]2;${1}\a"
+}
+
+# Description: Generate a random number from 1 to the specified maximum
+# Usage:  RANDOM_NUM 100
+# Returns: int
+function RANDOM_NUM() {
+    eval "shuf -i 1-${1} -n 1"
+}
+
+# Description: Converts a string to all api.std.failMsg characters
+# Usage:  name="$(LOWERCASE $name)"
+# Returns: string
+function LOWERCASE() {
+    NPRINT "${1}" | tr "[:upper:]" "[:lower:]"
+}
+
+# Description: Converts a string to all UPPERCASE characters
+# Usage:  name="$(UPPERCASE $name)"
+# Returns: string
+function UPPERCASE() {
+    NPRINT "${1}" | tr "[:lower:]" "[:upper:]"
+}
+
+# Description: Trim all leading/trailing whitespace from a string
+# Usage:  TRIM "   this      "
+# Returns: string
+function TRIM() {
+    local var="$*"
+
+    # remove leading whitespace characters
+    var="${var##*( )}"
+
+    # remove trailing whitespace characters
+    var="${var%%*( )}"
+
+    # Return trimmed string
+    printf '%s' "$var"
+}
+
+function LINES() {
+    for ((i = 0; i < COLUMNS; ++i)); do printf -; done
+    PRINT
+}
+
+# Description: Find the path for a command
+# Usage:  WHICH <cmd>
+# Returns: string
+function WHICH() {
+    command -v "${@}"
+}
+
+# Description: Run code silently
+# Usage:  SILENTRUN <command>
+# Returns: return exit code
+function SILENTRUN() {
+    "$@" >/dev/null 2>&1
+}
+
+# Description: Run code silently and disown it
+# Usage:  ASYNC <command>
+# Returns: void
+function ASYNC() {
+    "$@" >/dev/null 2>&1 &
+    disown
+}
+
+# Description: Check to see if input is 'yes' or empty
+# Usage:  CHECK_YES <var>
+# Returns: return code (0 for yes/empty, 1 for no)
+function CHECK_YES() {
+    [[ "$1" =~ [yY][eE]?[sS]? ]] && return 0
+    [[ -z "$1" ]] && return 0
+
+    return 1
+}
+
+# Description: Check to see if input is 'no' or empty
+# Usage:  CHECK_NO <var>
+# Returns: return code (0 for no/empty, 1 for yes)
+function CHECK_NO() {
+    [[ "$1" =~ [nN][oO]? ]] && return 0
+    [[ -n "${1}" ]] && return 0
+
+    return 1
+}
+
+# Description: Checks to see if input is a number
+# Usage:  IS_NUMBER <var>
+# Returns: return code (0 for yes)
+function IS_NUMBER() {
+    [[ "$1" =~ [0-9]+ ]] && return 0
+    return 1
+}
+
+# Description: Print current time & date
+# Usage: TIMESTAMP [-m/--multiline]?
+# Returns: string
+function TIMESTAMP() {
+    local timestamp="$(date +"%I:%M%P %m/%d/%Y")"
+
+    # Multi-line timestamp flag
+    [[ "${1}" == "-m" || "${1}" == "--multiline" ]] && timestamp="$(date +"%I:%M%P")\n$(date +"%m/%d/%Y")"
+
+    PRINT "${timestamp}"
+}
+
+###################################################
+# [ Handling SIGINT ] #
+###################################################
+function ctrl_c() {
+    PRINT "\n"
+    [[ -z "${scriptNumber}" ]] && PRINT "Canceling.\n"
+    clear
+    exit 0
+}
+
+trap ctrl_c INT
+
+###################################################
+# [ Screen Header Text ] #
+###################################################
+function HEADER() {
+    [[ ! "${1}" == "--no-clear" ]] && clear
+    PRINT "#######################################################################################"
+    PRINT "# ███████ ██ ███    ██  █████  ██          ██████  ███████  █████  ██      ███    ███ #"
+    PRINT "# ██      ██ ████   ██ ██   ██ ██          ██   ██ ██      ██   ██ ██      ████  ████ #"
+    PRINT "# █████   ██ ██ ██  ██ ███████ ██          ██████  █████   ███████ ██      ██ ████ ██ #"
+    PRINT "# ██      ██ ██  ██ ██ ██   ██ ██          ██   ██ ██      ██   ██ ██      ██  ██  ██ #"
+    PRINT "# ██      ██ ██   ████ ██   ██ ███████     ██   ██ ███████ ██   ██ ███████ ██      ██ #"
+    PRINT "#######################################################################################"
+    PRINT
+}
+
+###################################################
 # [ Sourcing & Maintenance ] #
 ###################################################
-. ./.api.sh
 EXIT=1
 export PROFILES="./.profiles"
 export ENV="./.env.sh"
 export ALLOW_ADMIN=1 # Default value, possibly overwritten in ENV
 
+# Source developer environment file if it exists
 [[ -e "${ENV}" ]] && . "${ENV}"
 
 ###################################################
@@ -32,51 +195,20 @@ export price_bow=713
 export price_magical_orb=15000
 
 ###################################################
-# [ Handling SIGINT ] #
-###################################################
-function ctrl_c() {
-    PRINT "\n"
-    [[ -z "${scriptNumber}" ]] && PRINT "Canceling.\n"
-    clear
-    exit 0
-}
-
-trap ctrl_c INT
-
-###################################################
-# [ Screen Header Text ] #
-###################################################
-function HEADER() {
-    clear
-    echo "                                                                                    "
-    echo "███████ ██ ███    ██  █████  ██          ██████  ███████  █████  ██      ███    ███ "
-    echo "██      ██ ████   ██ ██   ██ ██          ██   ██ ██      ██   ██ ██      ████  ████ "
-    echo "█████   ██ ██ ██  ██ ███████ ██          ██████  █████   ███████ ██      ██ ████ ██ "
-    echo "██      ██ ██  ██ ██ ██   ██ ██          ██   ██ ██      ██   ██ ██      ██  ██  ██ "
-    echo "██      ██ ██   ████ ██   ██ ███████     ██   ██ ███████ ██   ██ ███████ ██      ██ "
-    echo "                                                                                    "
-    echo
-}
-
-###################################################
 # [ Create & Save Profile ] #
 ###################################################
 
 # TODO: Rename variables
 function save_profile() {
     # Append profile file
+    PRINT "#!/usr/bin/env bash" >"${PROFILE_FILE}"
+
     APPEND() {
         PRINT "${1}" >>"${PROFILE_FILE}"
     }
 
-    echo "#" >"${PROFILE_FILE}"
-    APPEND "# ███████ ██ ███    ██  █████  ██          ██████  ███████  █████  ██      ███    ███ "
-    APPEND "# ██      ██ ████   ██ ██   ██ ██          ██   ██ ██      ██   ██ ██      ████  ████ "
-    APPEND "# █████   ██ ██ ██  ██ ███████ ██          ██████  █████   ███████ ██      ██ ████ ██ "
-    APPEND "# ██      ██ ██  ██ ██ ██   ██ ██          ██   ██ ██      ██   ██ ██      ██  ██  ██ "
-    APPEND "# ██      ██ ██   ████ ██   ██ ███████     ██   ██ ███████ ██   ██ ███████ ██      ██ "
-    APPEND "#"
-    APPEND "#"
+    APPEND
+    APPEND "$(HEADER --no-clear)"
     APPEND "# This is a Final Realm profile settings file. DO NOT TOUCH."
     APPEND
     APPEND "# [ User Account ] #"
