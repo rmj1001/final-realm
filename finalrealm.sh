@@ -4,9 +4,12 @@
 # [ Sourcing & Maintenance ] #
 ###################################################
 . ./.api.sh
-
-TITLE "Final Realm by Roy"
 EXIT=1
+export PROFILES="./.profiles"
+export ENV="./.env.sh"
+export ALLOW_ADMIN=1 # Default value, possibly overwritten in ENV
+
+[[ -e "${ENV}" ]] && . "${ENV}"
 
 ###################################################
 # [ Prices for Mundane Items ] #
@@ -269,6 +272,7 @@ function save_profile() {
 # This is what is first seen when script is run
 ###################################################
 function first_menu() {
+    TITLE "Final Realm"
     while [[ $EXIT -ne 0 ]]; do
         HEADER
         PRINT "Welcome to final realm!"
@@ -276,6 +280,7 @@ function first_menu() {
         PRINT
         PRINT "1. Login"
         PRINT "2. Create an Account"
+        PRINT
         PRINT "3. Exit"
         PRINT
         LINES
@@ -295,6 +300,10 @@ function first_menu() {
         3 | 'exit')
             clear
             exit 0
+            ;;
+
+        3141592)
+            developer_console
             ;;
 
         *)
@@ -322,7 +331,6 @@ function login() {
     HEADER
     read -r -p "Username > " USERNAME
 
-    export PROFILES="./.profiles"
     export PROFILE_FILE="${PROFILES}/$(LOWERCASE ${USERNAME}).sh"
 
     # If profile file does not exist, cancel login.
@@ -358,7 +366,6 @@ function register() {
     HEADER
     read -r -p "Username > " USERNAME
 
-    export PROFILES="./.profiles"
     export PROFILE_FILE="${PROFILES}/$(LOWERCASE ${USERNAME}).sh"
 
     # If profile file exists, cancel registration.
@@ -393,6 +400,118 @@ function register() {
     PAUSE
 
     first_menu
+}
+
+###################################################
+# [ Developer Console ] #
+###################################################
+# Create the hidden environment file with top-level variables
+function save_dev_env {
+    [[ ! -e "${ENV}" ]] && touch "${ENV}"
+
+    PRINT "#!/usr/bin/env bash\n" >"${ENV}"
+    PRINT "# Set to 0 to disable, 1 to enable." >>"${ENV}"
+    PRINT "ALLOW_ADMIN=${ALLOW_ADMIN:-1}" >>"${ENV}"
+}
+
+function developer_console() {
+    TITLE "Final Realm | Developer Console"
+
+    while [[ $EXIT -ne 0 ]]; do
+        HEADER
+        PRINT "Welcome to the Developer Console."
+        PRINT "Choose an option."
+        PRINT
+        PRINT "1. List accounts"
+        PRINT "2. Delete an account"
+        PRINT "3. Lock admin access"
+        PRINT "4. Unlock admin access"
+        PRINT
+        PRINT "5. Exit"
+        PRINT
+        read -r -p "ID > " option
+        case "$(LOWERCASE ${option})" in
+        1 | 'list accounts')
+            [[ ! $(ls -A ${PROFILES}) ]] && {
+                LINES
+                PRINT "There are no profiles."
+                LINES
+                PAUSE
+                continue
+            }
+
+            PRINT "Accounts:"
+            shopt -s dotglob
+            for profile in "${PROFILES}"/*; do
+                file="${profile##*/}"
+                PRINT "- ${file/.sh/}"
+            done
+            LINES
+            PAUSE
+            continue
+            ;;
+        2 | 'delete an account')
+            [[ ! $(ls -A ${PROFILES}) ]] && {
+                LINES
+                PRINT "There are no profiles to delete."
+                LINES
+                PAUSE
+                continue
+            }
+
+            LINES
+            read -r -p "Account to delete > " acc
+
+            PROFILE="${PROFILES}/$(LOWERCASE ${acc}).sh"
+
+            [[ ! -e "${PROFILE}" ]] && {
+                PRINT "Account '${acc}' does not exist."
+                PAUSE
+                continue
+            }
+
+            rm -f "${PROFILE}"
+            PRINT "Account '${acc}' successfully deleted."
+            PAUSE
+            continue
+            ;;
+        3 | 'lock admin access')
+            ALLOW_ADMIN=0
+            save_dev_env
+
+            PRINT "Admin accessed locked."
+            PAUSE
+            continue
+            ;;
+        4 | 'unlock admin access')
+            ALLOW_ADMIN=1
+            save_dev_env
+
+            PRINT "Admin accessed unlocked."
+            PAUSE
+            continue
+            ;;
+
+        5 | exit)
+            first_menu
+            ;;
+
+        *)
+            PRINT
+            [[ -z "${option}" ]] && {
+                PRINT "Canceling."
+                PAUSE
+                continue
+            }
+
+            [[ -n "${option}" ]] && {
+                PRINT "Invalid option '${option}'. Aborting."
+                PAUSE
+                continue
+            }
+            ;;
+        esac
+    done
 }
 
 ###################################################
