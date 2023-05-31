@@ -1,11 +1,36 @@
 #!/usr/bin/env bash
 
-# Source api script
+###################################################
+# [ Sourcing & Maintenance ] #
+###################################################
 . ./.api.sh
 
 TITLE "Final Realm by Roy"
 EXIT=1
 
+###################################################
+# [ Prices for Mundane Items ] #
+###################################################
+export price_gold_mail=300
+export price_bone=550
+export price_dragon_hide=750
+export price_runic_tablet=250
+export price_potion=200
+export price_food=100
+export price_ingot=473
+export price_seed=150
+export price_rfood=100
+export price_bait=2
+export price_fur=200
+export price_ore=500
+export price_log=275
+export price_gem=1000
+export price_bow=713
+export price_magical_orb=15000
+
+###################################################
+# [ Handling SIGINT ] #
+###################################################
 function ctrl_c() {
     PRINT "\n"
     [[ -z "${scriptNumber}" ]] && PRINT "Canceling.\n"
@@ -15,6 +40,9 @@ function ctrl_c() {
 
 trap ctrl_c INT
 
+###################################################
+# [ Screen Header Text ] #
+###################################################
 function HEADER() {
     clear
     echo "                                                                                    "
@@ -28,10 +56,10 @@ function HEADER() {
 }
 
 ###################################################
-# Create/Save Profile
-#
-# TODO: Re-name variables
-#
+# [ Create & Save Profile ] #
+###################################################
+
+# TODO: Rename variables
 function save_profile() {
     # Append profile file
     APPEND() {
@@ -235,6 +263,10 @@ function save_profile() {
     APPEND "export price_magical_orb=15000"
 }
 
+###################################################
+# [ First Menu ] #
+# This is what is first seen when script is run
+###################################################
 function first_menu() {
     while [[ $EXIT -ne 0 ]]; do
         HEADER
@@ -282,22 +314,29 @@ function first_menu() {
     done
 }
 
+###################################################
+# [ Login Screen ] #
+###################################################
 function login() {
     HEADER
     read -r -p "Username > " USERNAME
-    PROFILE_FILE="./.profiles/$(LOWERCASE ${USERNAME}).sh"
 
+    export PROFILE_FILE="./.profiles/$(LOWERCASE ${USERNAME}).sh"
+
+    # If profile file does not exist, cancel login.
     [[ ! -e "${PROFILE_FILE}" ]] && {
         PRINT "\nProfile '${USERNAME}' does not exist."
         PAUSE
         first_menu
     }
 
+    # Source profile file
     . "${PROFILE_FILE}"
 
     read -r -s -p "Password (cAsE sEnsiTivE) > " password
     PRINT
 
+    # If password doesn't match, cancel login.
     [[ ! "${password}" == "${PASSWORD}" ]] && {
         PRINT "\nPassword does not match."
         PAUSE
@@ -310,12 +349,16 @@ function login() {
     game_menu
 }
 
+###################################################
+# [ Registration Screen ] #
+###################################################
 function register() {
     HEADER
     read -r -p "Username > " USERNAME
 
     export PROFILE_FILE="./.profiles/$(LOWERCASE ${USERNAME}).sh"
 
+    # If profile file exists, cancel registration.
     [[ -e "${PROFILE_FILE}" ]] && {
         PRINT "\nProfile '${USERNAME}' already exists."
         PAUSE
@@ -327,6 +370,7 @@ function register() {
     read -r -s -p "Confirm Password > " password2
     PRINT
 
+    # If confirmed password doesn't match actual password, cancel registration.
     [[ "${password1}" != "${password2}" ]] && {
         PRINT "\nDifferent passwords given. Cancelling."
         PAUSE
@@ -335,6 +379,7 @@ function register() {
 
     PASSWORD="${password1}"
 
+    # Creates the new profile file
     save_profile
 
     # Confirmation
@@ -344,4 +389,7 @@ function register() {
     first_menu
 }
 
+###################################################
+# [ Initialize Terminal UI ] #
+###################################################
 first_menu
