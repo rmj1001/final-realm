@@ -10,9 +10,9 @@
 # This is a Final Realm profile settings file. DO NOT TOUCH.
 
 # [ User Account ] #
-export USERNAME='admin'
+export USERNAME='example'
 export PASSWORD='testing'
-export ADMIN=1 # Set to 1 to enable Admin access
+export ADMIN=0 # Set to 1 to enable Admin access
 
 # [ Bank ] #
 export bank_1_gold=0
@@ -67,40 +67,25 @@ export key=0
 export damage=0
 export total_level=13
 
-# [ Woodcutting Skill Stats ] #
-export Woodcutting_lvl=1
-export Woodcutting_xp_target=100
-export Woodcutting_xp_total=38
+# [ Begging Skill Stats ] #
+export Begging_lvl=1
+export Begging_xp_target=100
+export Begging_xp_total=45
 
-# [ Cooking Skill Stats ] #
-export Cook_lvl=1
-export Cook_xp_target=100
-export Cook_xp_total=41
-
-# [ Fishing Skill Stats ] #
-export Fishing_lvl=1
-export Fishing_xp_target=100
-export Fishing_xp_total=30
+# [ Thieving Skill Stats ] #
+export Thieving_lvl=1
+export Thieving_xp_target=100
+export Thieving_xp_total=36
 
 # [ Hunting Skill Stats ] #
 export Hunting_lvl=1
 export Hunting_xp_target=100
 export Hunting_xp_total=30
 
-# [ Mining Skill Stats ] #
-export Mining_lvl=1
-export Mining_xp_target=100
-export Mining_xp_total=35
-
-# [ Smithing Skill Stats ] #
-export Smithing_lvl=1
-export Smithing_xp_target=100
-export Smithing_xp_total=33
-
-# [ Thieving Skill Stats ] #
-export Thieving_lvl=1
-export Thieving_xp_target=100
-export Thieving_xp_total=36
+# [ Fishing Skill Stats ] #
+export Fishing_lvl=1
+export Fishing_xp_target=100
+export Fishing_xp_total=30
 
 # [ Farming Skill Stats ] #
 export Farming_lvl=1
@@ -111,6 +96,26 @@ export Farming_xp_total=31
 export Tailoring_lvl=1
 export Tailoring_xp_target=100
 export Tailoring_xp_total=31
+
+# [ Cooking Skill Stats ] #
+export Cook_lvl=1
+export Cook_xp_target=100
+export Cook_xp_total=41
+
+# [ Woodcutting Skill Stats ] #
+export Woodcutting_lvl=1
+export Woodcutting_xp_target=100
+export Woodcutting_xp_total=38
+
+# [ Mining Skill Stats ] #
+export Mining_lvl=1
+export Mining_xp_target=100
+export Mining_xp_total=35
+
+# [ Smithing Skill Stats ] #
+export Smithing_lvl=1
+export Smithing_xp_target=100
+export Smithing_xp_total=33
 
 # [ Mundane Items Inventory ] #
 export gold_mail=0
@@ -129,6 +134,19 @@ export gem=0
 export log=0
 export ore=0
 export magical_orb=0
+
+# Only skill that doesn't require a kit is begging, which no longer works
+# once you earn enough gold for a fishing or hunting kit (100 gold)
+# [ Skill Kits Inventory ] #
+export kit_thieving=0
+export kit_hunting=0
+export kit_fishing=0
+export kit_farming=0
+export kit_sewing=0
+export kit_cooking=0
+export kit_woodcutting=0
+export kit_mining=0
+export kit_smithing=0
 
 # [ Armor Inventory ] #
 export armor_1=0
@@ -178,7 +196,7 @@ export magic_sword_8=0
 export magic_sword_9=0
 export magic_sword_10=0
 
-# [ Pricing ] #
+# [ Mundane Items Pricing ] #
 export price_gold_mail=300
 export price_bone=550
 export price_dragon_hide=750
@@ -195,3 +213,14 @@ export price_log=275
 export price_gem=1000
 export price_bow=713
 export price_magical_orb=15000
+
+# [ Skill Kits Pricing ] #
+export price_kit_thieving=50
+export price_kit_hunting=100
+export price_kit_fishing=100
+export price_kit_farming=150
+export price_kit_sewing=30
+export price_kit_cooking=100
+export price_kit_woodcutting=200
+export price_kit_mining=300
+export price_kit_smithing=350

@@ -299,40 +299,25 @@ function save_profile() {
     APPEND "export damage=${damage:-0}"
     APPEND "export total_level=${total_level:-13}"
     APPEND ""
-    APPEND "# [ Woodcutting Skill Stats ] #"
-    APPEND "export Woodcutting_lvl=${Woodcuting_lvl:-1}"
-    APPEND "export Woodcutting_xp_target=${Woodcutting_xp_target:-100}"
-    APPEND "export Woodcutting_xp_total=${Woodcutting_xp_total:-38}"
+    APPEND "# [ Begging Skill Stats ] #"
+    APPEND "export Begging_lvl=${Begging_lvl:-1}"
+    APPEND "export Begging_xp_target=${Begging_xp_target:-100}"
+    APPEND "export Begging_xp_total=${Begging_xp_total:-45}"
     APPEND ""
-    APPEND "# [ Cooking Skill Stats ] #"
-    APPEND "export Cook_lvl=${Cook_lvl:-1}"
-    APPEND "export Cook_xp_target=${Cook_xp_target:-100}"
-    APPEND "export Cook_xp_total=${Cook_xp_total:-41}"
-    APPEND ""
-    APPEND "# [ Fishing Skill Stats ] #"
-    APPEND "export Fishing_lvl=${Fishing_lvl:-1}"
-    APPEND "export Fishing_xp_target=${Fishing_xp_target:-100}"
-    APPEND "export Fishing_xp_total=${Fishing_xp_total:-30}"
+    APPEND "# [ Thieving Skill Stats ] #"
+    APPEND "export Thieving_lvl=${Thieving_lvl:-1}"
+    APPEND "export Thieving_xp_target=${Thieving_xp_target:-100}"
+    APPEND "export Thieving_xp_total=${Thieving_xp_total:-36}"
     APPEND ""
     APPEND "# [ Hunting Skill Stats ] #"
     APPEND "export Hunting_lvl=${Hunting_lvl:-1}"
     APPEND "export Hunting_xp_target=${Hunting_xp_target:-100}"
     APPEND "export Hunting_xp_total=${Hunting_xp_total:-30}"
     APPEND ""
-    APPEND "# [ Mining Skill Stats ] #"
-    APPEND "export Mining_lvl=${Mining_lvl:-1}"
-    APPEND "export Mining_xp_target=${Mining_xp_target:-100}"
-    APPEND "export Mining_xp_total=${Mining_xp_total:-35}"
-    APPEND ""
-    APPEND "# [ Smithing Skill Stats ] #"
-    APPEND "export Smithing_lvl=${Smithing_lvl:-1}"
-    APPEND "export Smithing_xp_target=${Smithing_xp_target:-100}"
-    APPEND "export Smithing_xp_total=${Smithing_xp_total:-33}"
-    APPEND ""
-    APPEND "# [ Thieving Skill Stats ] #"
-    APPEND "export Thieving_lvl=${Thieving_lvl:-1}"
-    APPEND "export Thieving_xp_target=${Thieving_xp_target:-100}"
-    APPEND "export Thieving_xp_total=${Thieving_xp_total:-36}"
+    APPEND "# [ Fishing Skill Stats ] #"
+    APPEND "export Fishing_lvl=${Fishing_lvl:-1}"
+    APPEND "export Fishing_xp_target=${Fishing_xp_target:-100}"
+    APPEND "export Fishing_xp_total=${Fishing_xp_total:-30}"
     APPEND ""
     APPEND "# [ Farming Skill Stats ] #"
     APPEND "export Farming_lvl=${Farming_lvl:-1}"
@@ -343,6 +328,26 @@ function save_profile() {
     APPEND "export Tailoring_lvl=${Tailoring_lvl:-1}"
     APPEND "export Tailoring_xp_target=${Tailoring_xp_target:-100}"
     APPEND "export Tailoring_xp_total=${Tailoring_xp_total:-31}"
+    APPEND ""
+    APPEND "# [ Cooking Skill Stats ] #"
+    APPEND "export Cook_lvl=${Cook_lvl:-1}"
+    APPEND "export Cook_xp_target=${Cook_xp_target:-100}"
+    APPEND "export Cook_xp_total=${Cook_xp_total:-41}"
+    APPEND ""
+    APPEND "# [ Woodcutting Skill Stats ] #"
+    APPEND "export Woodcutting_lvl=${Woodcuting_lvl:-1}"
+    APPEND "export Woodcutting_xp_target=${Woodcutting_xp_target:-100}"
+    APPEND "export Woodcutting_xp_total=${Woodcutting_xp_total:-38}"
+    APPEND ""
+    APPEND "# [ Mining Skill Stats ] #"
+    APPEND "export Mining_lvl=${Mining_lvl:-1}"
+    APPEND "export Mining_xp_target=${Mining_xp_target:-100}"
+    APPEND "export Mining_xp_total=${Mining_xp_total:-35}"
+    APPEND ""
+    APPEND "# [ Smithing Skill Stats ] #"
+    APPEND "export Smithing_lvl=${Smithing_lvl:-1}"
+    APPEND "export Smithing_xp_target=${Smithing_xp_target:-100}"
+    APPEND "export Smithing_xp_total=${Smithing_xp_total:-33}"
     APPEND ""
     APPEND "# [ Mundane Items Inventory ] #"
     APPEND "export gold_mail=${gold_mail:-0}"
@@ -361,6 +366,19 @@ function save_profile() {
     APPEND "export log=${log:-0}"
     APPEND "export ore=${ore:-0}"
     APPEND "export magical_orb=${magical_orb:-0}"
+    APPEND ""
+    APPEND "# Only skill that doesn't require a kit is begging, which no longer works"
+    APPEND "# once you earn enough gold for a fishing or hunting kit (100 gold)"
+    APPEND "# [ Skill Kits Inventory ] #"
+    APPEND "export kit_thieving=${kit_thieivng:-0}"
+    APPEND "export kit_hunting=${kit_hunting:-0}"
+    APPEND "export kit_fishing=${kit_fishing:-0}"
+    APPEND "export kit_farming=${kit_farming:-0}"
+    APPEND "export kit_sewing=${kit_sewing:-0}"
+    APPEND "export kit_cooking=${kit_cooking:-0}"
+    APPEND "export kit_woodcutting=${kit_woodcutting:-0}"
+    APPEND "export kit_mining=${kit_mining:-0}"
+    APPEND "export kit_smithing=${kit_smithing:-0}"
     APPEND ""
     APPEND "# [ Armor Inventory ] #"
     APPEND "export armor_1=${armor_1:-0}"
@@ -410,7 +428,7 @@ function save_profile() {
     APPEND "export magic_sword_9=${magic_sword_9:-0}"
     APPEND "export magic_sword_10=${magic_sword_10:-0}"
     APPEND ""
-    APPEND "# [ Pricing ] #"
+    APPEND "# [ Mundane Items Pricing ] #"
     APPEND "export price_gold_mail=300"
     APPEND "export price_bone=550"
     APPEND "export price_dragon_hide=750"
@@ -427,6 +445,17 @@ function save_profile() {
     APPEND "export price_gem=1000"
     APPEND "export price_bow=713"
     APPEND "export price_magical_orb=15000"
+    APPEND
+    APPEND "# [ Skill Kits Pricing ] # "
+    APPEND "export price_kit_thieving=50"
+    APPEND "export price_kit_hunting=100"
+    APPEND "export price_kit_fishing=100"
+    APPEND "export price_kit_farming=150"
+    APPEND "export price_kit_sewing=30"
+    APPEND "export price_kit_cooking=100"
+    APPEND "export price_kit_woodcutting=200"
+    APPEND "export price_kit_mining=300"
+    APPEND "export price_kit_smithing=350"
 }
 
 ###################################################
@@ -567,15 +596,6 @@ function register() {
 ###################################################
 # [ Developer Console ] #
 ###################################################
-# Create the hidden environment file with top-level variables
-function save_dev_env {
-    [[ ! -e "${ENV}" ]] && touch "${ENV}"
-
-    PRINT "#!/usr/bin/env bash\n" >"${ENV}"
-    PRINT "# Set to 0 to disable, 1 to enable." >>"${ENV}"
-    PRINT "ALLOW_ADMIN=${ALLOW_ADMIN:-1}" >>"${ENV}"
-}
-
 function developer_console() {
     TITLE "Final Realm | Developer Console"
 
@@ -584,16 +604,16 @@ function developer_console() {
         PRINT "Welcome to the Developer Console."
         PRINT "Choose an option."
         PRINT
-        PRINT "1. List accounts"
-        PRINT "2. Delete an account"
-        PRINT "3. Lock admin access"
-        PRINT "4. Unlock admin access"
+        PRINT "1. List profiles"
+        PRINT "2. Delete a profile"
+        PRINT "3. Enable admin for profile"
+        PRINT "4. Disable admin for profile"
         PRINT
         PRINT "5. Exit"
         PRINT
         read -r -p "ID > " option
         case "$(LOWERCASE ${option})" in
-        1 | 'list accounts')
+        1 | 'list profiles')
             [[ ! $(ls -A ${PROFILES}) ]] && {
                 LINES
                 PRINT "There are no profiles."
@@ -602,7 +622,8 @@ function developer_console() {
                 continue
             }
 
-            PRINT "Accounts:"
+            LINES
+            PRINT "Profiles:"
             shopt -s dotglob
             for profile in "${PROFILES}"/*; do
                 file="${profile##*/}"
@@ -612,7 +633,7 @@ function developer_console() {
             PAUSE
             continue
             ;;
-        2 | 'delete an account')
+        2 | 'delete a profile')
             [[ ! $(ls -A ${PROFILES}) ]] && {
                 LINES
                 PRINT "There are no profiles to delete."
@@ -622,38 +643,77 @@ function developer_console() {
             }
 
             LINES
-            read -r -p "Account to delete > " acc
+            read -r -p "Profile > " acc
 
-            PROFILE="${PROFILES}/$(LOWERCASE ${acc}).sh"
+            PROFILE_FILE="${PROFILES}/$(LOWERCASE ${acc}).sh"
 
-            [[ ! -e "${PROFILE}" ]] && {
-                PRINT "Account '${acc}' does not exist."
+            [[ ! -e "${PROFILE_FILE}" ]] && {
+                PRINT "Profile '${acc}' does not exist."
                 PAUSE
                 continue
             }
 
-            rm -f "${PROFILE}"
-            PRINT "Account '${acc}' successfully deleted."
+            rm -f "${PROFILE_FILE}"
+            PRINT "Profile '${acc}' successfully deleted."
             PAUSE
             continue
             ;;
-        3 | 'lock admin access')
-            ALLOW_ADMIN=0
-            save_dev_env
+        3 | 'enable admin for profile')
+            [[ ! $(ls -A ${PROFILES}) ]] && {
+                LINES
+                PRINT "There are no profiles."
+                LINES
+                PAUSE
+                continue
+            }
 
-            PRINT "Admin accessed locked."
+            LINES
+            read -r -p "Profile > " acc
+
+            PROFILE_FILE="${PROFILES}/$(LOWERCASE ${acc}).sh"
+
+            [[ ! -e "${PROFILE_FILE}" ]] && {
+                PRINT "Profile '${acc}' does not exist."
+                PAUSE
+                continue
+            }
+
+            . "${PROFILE_FILE}"
+            ADMIN=1
+            save_profile
+
+            PRINT "Profile '${acc}' is now an admin."
             PAUSE
             continue
             ;;
-        4 | 'unlock admin access')
-            ALLOW_ADMIN=1
-            save_dev_env
+        4 | 'disable admin for profile')
+            [[ ! $(ls -A ${PROFILES}) ]] && {
+                LINES
+                PRINT "There are no profiles."
+                LINES
+                PAUSE
+                continue
+            }
 
-            PRINT "Admin accessed unlocked."
+            LINES
+            read -r -p "Profile > " acc
+
+            PROFILE_FILE="${PROFILES}/$(LOWERCASE ${acc}).sh"
+
+            [[ ! -e "${PROFILE_FILE}" ]] && {
+                PRINT "Profile '${acc}' does not exist."
+                PAUSE
+                continue
+            }
+
+            . "${PROFILE_FILE}"
+            ADMIN=0
+            save_profile
+
+            PRINT "Profile '${acc}' is no longer an admin."
             PAUSE
             continue
             ;;
-
         5 | exit)
             first_menu
             ;;
