@@ -225,10 +225,42 @@ export price_bow=713
 export price_magical_orb=15000
 
 ###################################################
-# [ Create & Save Profile ] #
+# [ Profile Manipulation ] #
 ###################################################
 
-# TODO: Rename variables
+# Generate the path for a profile
+function profile_path() {
+    export PROFILE_FILE="${PROFILES}/$(LOWERCASE ${1}).sh"
+}
+
+# Check to see if a profile already exists
+function profile_exists() {
+    profile_path "${1}"
+
+    # If profile file does not exist, cancel login.
+    [[ -e "${PROFILE_FILE}" ]] && {
+        return 0
+    }
+
+    return 1
+}
+
+# Source a profile in bash if it already exists
+function open_profile() {
+    # If profile file does not exist, cancel login.
+    profile_exists "${1}" || {
+        PRINT "\nProfile '${1}' does not exist."
+        PAUSE
+        return 1
+    }
+
+    # Source profile file
+    profile_path "${1}"
+    . "${PROFILE_FILE}"
+
+    return 0
+}
+
 function save_profile() {
     # Append profile file
     PRINT "#!/usr/bin/env bash" >"${PROFILE_FILE}"
@@ -241,24 +273,17 @@ function save_profile() {
     APPEND "$(HEADER --no-clear)"
     APPEND "# This is a Final Realm profile settings file. DO NOT TOUCH."
     APPEND
-    APPEND "# [ User Account ] #"
+    APPEND "###################################################"
+    APPEND "# [ User Account & Settings ]"
+    APPEND "###################################################"
+    APPEND
     APPEND "export USERNAME='${USERNAME}'"
     APPEND "export PASSWORD='${PASSWORD}'"
     APPEND "export ADMIN=${ADMIN:-0} # Set to 1 to enable Admin access"
     APPEND ""
-    APPEND "# [ Bank ] #"
-    APPEND "export bank_1_gold=${bank_1_gold:-0}"
-    APPEND "export bank_1_status='${bank_1_status:-Open}'"
-    APPEND "export bank_2_gold=${bank_2_gold:-0}"
-    APPEND "export bank_2_status='${bank_2_status:-Open}'"
-    APPEND "export bank_3_gold=${bank_3_gold:-0}"
-    APPEND "export bank_3_status='${bank_3_status:-Open}'"
-    APPEND "export bank_4_gold=${bank_4_gold:-0}"
-    APPEND "export bank_4_status='${bank_4_status:-Open}'"
-    APPEND "export bank_5_gold=${bank_5_gold:-0}"
-    APPEND "export bank_5_status='${bank_5_status:-Open}'"
-    APPEND ""
-    APPEND "# [ Temporary Variables ] #"
+    APPEND "###################################################"
+    APPEND "# [ Temporary Variables ]"
+    APPEND "###################################################"
     APPEND "export cost=${cost:-0}"
     APPEND "export cost1=${cost1:-0}"
     APPEND "export gcho=${gcho:-0}"
@@ -289,6 +314,10 @@ function save_profile() {
     APPEND "export armor_choice='${armor_choice:-hi}'"
     APPEND "export armor_choice2='${armor_choice2:-Armor}'"
     APPEND "export armor_price=${armor_price:-0}"
+    APPEND ""
+    APPEND "###################################################"
+    APPEND "# [ Player Statistics ]"
+    APPEND "###################################################"
     APPEND ""
     APPEND "# [ Player Statistics ] #"
     APPEND "export player_xp=${player_xp:-0}"
@@ -348,6 +377,22 @@ function save_profile() {
     APPEND "export Smithing_lvl=${Smithing_lvl:-1}"
     APPEND "export Smithing_xp_target=${Smithing_xp_target:-100}"
     APPEND "export Smithing_xp_total=${Smithing_xp_total:-33}"
+    APPEND ""
+    APPEND "###################################################"
+    APPEND "# [ Banking & Inventory ]"
+    APPEND "###################################################"
+    APPEND ""
+    APPEND "# [ Bank ] #"
+    APPEND "export bank_1_gold=${bank_1_gold:-0}"
+    APPEND "export bank_1_status='${bank_1_status:-Open}'"
+    APPEND "export bank_2_gold=${bank_2_gold:-0}"
+    APPEND "export bank_2_status='${bank_2_status:-Open}'"
+    APPEND "export bank_3_gold=${bank_3_gold:-0}"
+    APPEND "export bank_3_status='${bank_3_status:-Open}'"
+    APPEND "export bank_4_gold=${bank_4_gold:-0}"
+    APPEND "export bank_4_status='${bank_4_status:-Open}'"
+    APPEND "export bank_5_gold=${bank_5_gold:-0}"
+    APPEND "export bank_5_status='${bank_5_status:-Open}'"
     APPEND ""
     APPEND "# [ Mundane Items Inventory ] #"
     APPEND "export gold_mail=${gold_mail:-0}"
@@ -427,6 +472,10 @@ function save_profile() {
     APPEND "export magic_sword_8=${magic_sword_8:-0}"
     APPEND "export magic_sword_9=${magic_sword_9:-0}"
     APPEND "export magic_sword_10=${magic_sword_10:-0}"
+    APPEND ""
+    APPEND "###################################################"
+    APPEND "# [ Shop Prices ]"
+    APPEND "###################################################"
     APPEND ""
     APPEND "# [ Mundane Items Pricing ] #"
     APPEND "export price_gold_mail=300"
@@ -522,17 +571,7 @@ function login() {
     HEADER
     read -r -p "Username > " USERNAME
 
-    export PROFILE_FILE="${PROFILES}/$(LOWERCASE ${USERNAME}).sh"
-
-    # If profile file does not exist, cancel login.
-    [[ ! -e "${PROFILE_FILE}" ]] && {
-        PRINT "\nProfile '${USERNAME}' does not exist."
-        PAUSE
-        first_menu
-    }
-
-    # Source profile file
-    . "${PROFILE_FILE}"
+    open_profile "$USERNAME" || first_menu
 
     read -r -s -p "Password (cAsE sEnsiTivE) > " password
     PRINT
@@ -557,10 +596,8 @@ function register() {
     HEADER
     read -r -p "Username > " USERNAME
 
-    export PROFILE_FILE="${PROFILES}/$(LOWERCASE ${USERNAME}).sh"
-
     # If profile file exists, cancel registration.
-    [[ -e "${PROFILE_FILE}" ]] && {
+    profile_exists "${USERNAME}" && {
         PRINT "\nProfile '${USERNAME}' already exists."
         PAUSE
         first_menu
@@ -645,15 +682,15 @@ function developer_console() {
             LINES
             read -r -p "Profile > " acc
 
-            PROFILE_FILE="${PROFILES}/$(LOWERCASE ${acc}).sh"
-
-            [[ ! -e "${PROFILE_FILE}" ]] && {
+            profile_exists "${acc}" || {
                 PRINT "Profile '${acc}' does not exist."
                 PAUSE
                 continue
             }
 
+            profile_path "${acc}"
             rm -f "${PROFILE_FILE}"
+
             PRINT "Profile '${acc}' successfully deleted."
             PAUSE
             continue
@@ -661,7 +698,7 @@ function developer_console() {
         3 | 'enable admin for profile')
             [[ ! $(ls -A ${PROFILES}) ]] && {
                 LINES
-                PRINT "There are no profiles."
+                PRINT "There are no profiles to delete."
                 LINES
                 PAUSE
                 continue
@@ -670,15 +707,7 @@ function developer_console() {
             LINES
             read -r -p "Profile > " acc
 
-            PROFILE_FILE="${PROFILES}/$(LOWERCASE ${acc}).sh"
-
-            [[ ! -e "${PROFILE_FILE}" ]] && {
-                PRINT "Profile '${acc}' does not exist."
-                PAUSE
-                continue
-            }
-
-            . "${PROFILE_FILE}"
+            open_profile "${acc}"
             ADMIN=1
             save_profile
 
@@ -698,15 +727,7 @@ function developer_console() {
             LINES
             read -r -p "Profile > " acc
 
-            PROFILE_FILE="${PROFILES}/$(LOWERCASE ${acc}).sh"
-
-            [[ ! -e "${PROFILE_FILE}" ]] && {
-                PRINT "Profile '${acc}' does not exist."
-                PAUSE
-                continue
-            }
-
-            . "${PROFILE_FILE}"
+            open_profile "${acc}"
             ADMIN=0
             save_profile
 

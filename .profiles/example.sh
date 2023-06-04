@@ -9,24 +9,17 @@
 #######################################################################################
 # This is a Final Realm profile settings file. DO NOT TOUCH.
 
-# [ User Account ] #
+###################################################
+# [ User Account & Settings ]
+###################################################
+
 export USERNAME='example'
 export PASSWORD='testing'
 export ADMIN=0 # Set to 1 to enable Admin access
 
-# [ Bank ] #
-export bank_1_gold=0
-export bank_1_status='Open'
-export bank_2_gold=0
-export bank_2_status='Open'
-export bank_3_gold=0
-export bank_3_status='Open'
-export bank_4_gold=0
-export bank_4_status='Open'
-export bank_5_gold=0
-export bank_5_status='Open'
-
-# [ Temporary Variables ] #
+###################################################
+# [ Temporary Variables ]
+###################################################
 export cost=0
 export cost1=0
 export gcho=0
@@ -57,6 +50,10 @@ export sword_price=0
 export armor_choice='hi'
 export armor_choice2='Armor'
 export armor_price=0
+
+###################################################
+# [ Player Statistics ]
+###################################################
 
 # [ Player Statistics ] #
 export player_xp=0
@@ -116,6 +113,22 @@ export Mining_xp_total=35
 export Smithing_lvl=1
 export Smithing_xp_target=100
 export Smithing_xp_total=33
+
+###################################################
+# [ Banking & Inventory ]
+###################################################
+
+# [ Bank ] #
+export bank_1_gold=0
+export bank_1_status='Open'
+export bank_2_gold=0
+export bank_2_status='Open'
+export bank_3_gold=0
+export bank_3_status='Open'
+export bank_4_gold=0
+export bank_4_status='Open'
+export bank_5_gold=0
+export bank_5_status='Open'
 
 # [ Mundane Items Inventory ] #
 export gold_mail=0
@@ -196,6 +209,10 @@ export magic_sword_8=0
 export magic_sword_9=0
 export magic_sword_10=0
 
+###################################################
+# [ Shop Prices ]
+###################################################
+
 # [ Mundane Items Pricing ] #
 export price_gold_mail=300
 export price_bone=550
@@ -214,7 +231,7 @@ export price_gem=1000
 export price_bow=713
 export price_magical_orb=15000
 
-# [ Skill Kits Pricing ] #
+# [ Skill Kits Pricing ] # 
 export price_kit_thieving=50
 export price_kit_hunting=100
 export price_kit_fishing=100
