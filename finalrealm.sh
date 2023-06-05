@@ -583,9 +583,6 @@ function login() {
         first_menu
     }
 
-    PRINT "\nWelcome to final realm, ${USERNAME}."
-    PAUSE
-
     game_menu
 }
 
@@ -755,6 +752,237 @@ function developer_console() {
             ;;
         esac
     done
+}
+
+###################################################
+# [ Game Menu ] #
+###################################################
+function game_menu() {
+    TITLE "Final Realm"
+    while [[ $EXIT -ne 0 ]]; do
+        HEADER
+        PRINT "Welcome to Final Realm, ${USERNAME}."
+        PRINT "What would you like to do?"
+        PRINT
+        PRINT "#######################"
+        PRINT "# Go on an Adventure"
+        PRINT "#######################"
+        PRINT "1. Wander Gielinor"
+        PRINT "2. Enter the Stronghold"
+        PRINT
+        PRINT "#######################"
+        PRINT "# Make Money"
+        PRINT "#######################"
+        PRINT "3. Work in the Guilds"
+        PRINT "4. Quest Hall"
+        PRINT
+        PRINT "#######################"
+        PRINT "# Spend Money"
+        PRINT "#######################"
+        PRINT "5. Bank"
+        PRINT "6. Trading Post"
+        PRINT "7. Weapons Shop"
+        PRINT "8. Armor Shop"
+        PRINT "9. Magic Shop"
+        PRINT "10. Tavern"
+        PRINT "11. The Smuggler"
+        PRINT
+        PRINT "#######################"
+        PRINT "# Administration"
+        PRINT "#######################"
+        PRINT "12. Player Inventory"
+        PRINT "13. Player Settings"
+        PRINT "99. Exit"
+        PRINT
+        LINES
+        read -r -p "ID > " scriptNumber
+        LINES
+
+        case "$(LOWERCASE ${scriptNumber})" in
+
+        1 | 'wander gielinor')
+            wander_gielinor
+            ;;
+
+        2 | 'enter the stronghold')
+            enter_stronghold
+            ;;
+
+        3 | 'work in the guilds')
+            the_guilds
+            ;;
+
+        4 | 'quest hall')
+            quest_hall
+            ;;
+
+        5 | 'bank')
+            bank
+            ;;
+
+        6 | 'trading post')
+            trading_post
+            ;;
+
+        7 | 'weapons shop')
+            weapons_shop
+            ;;
+
+        8 | 'armor shop')
+            armor_shop
+            ;;
+
+        9 | 'magic shop')
+            magic_shop
+            ;;
+
+        10 | 'tavern')
+            tavern
+            ;;
+
+        11 | 'the smuggler')
+            the_smuggler
+            ;;
+
+        12 | 'player inventory')
+            player_inventory
+            ;;
+
+        13 | 'player_settings')
+            player_settings
+            ;;
+
+        3141592)
+            admin_menu
+            ;;
+
+        99 | exit)
+            PRINT "Thanks for playing final realm!"
+            PAUSE
+            first_menu
+            ;;
+
+        *)
+            [[ -n "${scriptNumber}" ]] && {
+                PRINT "Invalid option '${scriptNumber}'."
+                PAUSE
+                continue
+            }
+            ;;
+        esac
+    done
+}
+
+###################################################
+# [ Wandering Gielinor ] #
+###################################################
+function wander_gielinor() {
+    PRINT "This has not yet been coded."
+    PAUSE
+}
+
+###################################################
+# [ The Stronghold ] #
+###################################################
+function enter_stronghold() {
+    PRINT "This has not yet been coded."
+    PAUSE
+}
+
+###################################################
+# [ The Guilds ] #
+###################################################
+function the_guilds() {
+    PRINT "This has not yet been coded."
+    PAUSE
+}
+
+###################################################
+# [ Quest Hall ] #
+###################################################
+function quest_hall() {
+    PRINT "This has not yet been coded."
+    PAUSE
+}
+
+###################################################
+# [ Bank ] #
+###################################################
+function bank() {
+    PRINT "This has not yet been coded."
+    PAUSE
+}
+
+###################################################
+# [ Trading Post ] #
+###################################################
+function trading_post() {
+    PRINT "This has not yet been coded."
+    PAUSE
+}
+
+###################################################
+# [ Weapons Shop ] #
+###################################################
+function weapons_shop() {
+    PRINT "This has not yet been coded."
+    PAUSE
+}
+
+###################################################
+# [ Armor Shop ] #
+###################################################
+function armor_shop() {
+    PRINT "This has not yet been coded."
+    PAUSE
+}
+
+###################################################
+# [ Magic Shop ] #
+###################################################
+function magic_shop() {
+    PRINT "This has not yet been coded."
+    PAUSE
+}
+
+###################################################
+# [ Tavern ] #
+###################################################
+function tavern() {
+    PRINT "This has not yet been coded."
+    PAUSE
+}
+
+###################################################
+# [ The Smuggler ] #
+###################################################
+function the_smuggler() {
+    PRINT "This has not yet been coded."
+    PAUSE
+}
+
+###################################################
+# [ Player Inventory ] #
+###################################################
+function player_inventory() {
+    PRINT "This has not yet been coded."
+    PAUSE
+}
+
+###################################################
+# [ Player Settings ] #
+###################################################
+function player_settings() {
+    PRINT "This has not yet been coded."
+    PAUSE
+}
+
+###################################################
+# [ Admin Menu ] #
+###################################################
+function admin_menu() {
+    PRINT "This has not yet been coded."
+    PAUSE
 }
 
 ###################################################
