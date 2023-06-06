@@ -30,8 +30,9 @@ trap ctrl_c INT
 ###################################################
 project_folder="${HOME}/.local/share/final-realm"
 repository="${project_folder}/repository"
-game="/usr/share/bin/final-realm"
-mgr="/usr/share/bin/final-realm-mgr"
+bin="/usr/bin"
+game="${bin}/final-realm"
+mgr="${bin}/final-realm-mgr"
 EXIT=1
 
 ###################################################
@@ -53,8 +54,11 @@ function clone_or_update_repo() {
 # [ Install files ] #
 ###################################################
 function install_files() {
-    sudo install -m +x -t "${game}" "${repository}/final-realm.sh"
-    sudo install -m +x -t "${mgr}" "${repository}/final-realm-mgr.sh"
+    sudo install -m +x -t "${bin}" "${repository}/src/final-realm.sh"
+    sudo install -m +x -t "${bin}" "${repository}/src/final-realm-mgr.sh"
+
+    sudo mv "${bin}/final-realm.sh" "${game}"
+    sudo mv "${bin}/final-realm-mgr.sh" "${mgr}"
 }
 
 ###################################################
