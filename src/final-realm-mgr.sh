@@ -1,44 +1,62 @@
 #!/usr/bin/env bash
 
-PRINT() {
+###################################################
+# [ Important Functions ] #
+###################################################
+function PRINT() {
     printf "%b\n" "$@"
 }
 
+function LOWERCASE() {
+    NPRINT "${1}" | tr "[:upper:]" "[:lower:]"
+}
+
+###################################################
+# [ Script Config ] #
+###################################################
 project_folder="${HOME}/.local/share/final-realm"
 repository="${project_folder}/repository"
 
 game="/usr/share/bin/final-realm"
 mgr="/usr/share/bin/final-realm-mgr"
 
-installer() {
+###################################################
+# [ Clone/Update local repository ] #
+###################################################
+clone_or_update_repo() {
+    REPO_EXISTS=false
+    [[ -d "${repository}" ]] && REPO_EXISTS=true
 
-    [[ -d "${repository}" ]] || mkdir -p "${repository}"
+    [[ $REPO_EXISTS == true ]] && {
+        cd "${repository}" && git pull && return 0
+    }
 
+    mkdir -p "${repository}"
     git clone git@github.com:rmj1001/final-realm.git "${repository}"
+}
 
+###################################################
+# [ Install files ] #
+###################################################
+install_files() {
     sudo install -m +x -t "${game}" "${repository}/final-realm.sh"
     sudo install -m +x -t "${mgr}" "${repository}/final-realm-mgr.sh"
 }
 
-uninstaller() {
+###################################################
+# [ Uninstall Final Realm ] #
+###################################################
+uninstall_files() {
     [[ -d "${project_folder}" ]] && rm -rf "${project_folder}"
     sudo rm -f "${game}"
     sudo rm -f "${mgr}"
 }
 
-updater() {
-    cd "${repository}" || {
-        PRINT "Repository does not exist."
-        return 1
-    }
-
-    git pull
-
-    sudo install -m +x -t "${game}" "${repository}/final-realm.sh"
-    sudo install -m +x -t "${mgr}" "${repository}/final-realm-mgr.sh"
-}
-
+###################################################
+# [ Manager Menu ] #
+###################################################
 while [[ $EXIT -ne 0 ]]; do
+    clear
     PRINT "#######################################################################################"
     PRINT "# ███████ ██ ███    ██  █████  ██          ██████  ███████  █████  ██      ███    ███ #"
     PRINT "# ██      ██ ████   ██ ██   ██ ██          ██   ██ ██      ██   ██ ██      ████  ████ #"
@@ -49,31 +67,30 @@ while [[ $EXIT -ne 0 ]]; do
     PRINT
     PRINT
     PRINT "Please choose an option."
-    PRINT "1. Install"
+    PRINT "1. Install or Upate"
     PRINT "2. Uninstall"
-    PRINT "3. Update"
     PRINT
     read -r -p "ID > " option
 
-    case "${LOWERCASE "${option}"}" in
-        1 | 'install' )
-            installer
+    case "$(LOWERCASE "${1}")" in
+    1 | 'install or update' | 'install' | 'update')
+        clone_or_update_repo
+        install_files
         ;;
-        2 | 'uninstall' )
-            uninstaller
+    2 | 'uninstall')
+        uninstall_files
         ;;
-        3 | 'update' )
-            updater
-        ;;
-        *)
-            [[ -n "${option}" ]] && {
-                PRINT "Invalid option '${option}'."
-                read -r -p "PRESS <ENTER> TO CONTINUE..."
-                continue
-            }
-
-            PRINT "You must choose an option."
+    *)
+        [[ -n "${option}" ]] && {
+            PRINT "Invalid option '${option}'."
             read -r -p "PRESS <ENTER> TO CONTINUE..."
             continue
+        }
+
+        PRINT "You must choose an option."
+        read -r -p "PRESS <ENTER> TO CONTINUE..."
+        continue
+        ;;
     esac
+
 done
