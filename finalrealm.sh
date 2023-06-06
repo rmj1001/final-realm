@@ -684,12 +684,9 @@ function developer_console() {
 # [ Game Menu ] #
 ###################################################
 function game_menu() {
-    TITLE "Final Realm"
+    TITLE "Final Realm | Player: ${PLAYERNAME}"
     while [[ $EXIT -ne 0 ]]; do
         HEADER
-        PRINT "Welcome to Final Realm, ${PLAYERNAME}."
-        PRINT "What would you like to do?"
-        PRINT
         PRINT "#######################"
         PRINT "# Go on an Adventure"
         PRINT "#######################"
@@ -697,14 +694,10 @@ function game_menu() {
         PRINT "2. Enter the Stronghold"
         PRINT
         PRINT "#######################"
-        PRINT "# Make Money"
+        PRINT "# Economy"
         PRINT "#######################"
         PRINT "3. Work in the Guilds"
         PRINT "4. Quest Hall"
-        PRINT
-        PRINT "#######################"
-        PRINT "# Spend Money"
-        PRINT "#######################"
         PRINT "5. Bank"
         PRINT "6. Trading Post"
         PRINT "7. Weapons Shop"
@@ -721,7 +714,7 @@ function game_menu() {
         PRINT "0. Log Out"
         PRINT
         LINES
-        read -r -p "ID > " option
+        read -r -p "Choose an Option > " option
         LINES
 
         case "$(LOWERCASE ${option})" in
