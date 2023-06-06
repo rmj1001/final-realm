@@ -92,9 +92,11 @@ while [[ $EXIT -ne 0 ]]; do
     1 | 'install or update' | 'install' | 'update')
         clone_or_update_repo
         install_files
+        continue
         ;;
     2 | 'uninstall')
         uninstall_files
+        continue
         ;;
     *)
         [[ -n "${option}" ]] && {
