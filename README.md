@@ -12,7 +12,7 @@ any platform that runs Bash (will be written in POSIX once the initial logic is 
 Run the command below to install Final Realm. RUN AT YOUR OWN RISK.
 
 ```bash
-bash <(wget -qO- https://raw.githubusercontent.com/rmj1001/final-realm/main/src/final-realm-mgr.sh)
+wget -qO- https://raw.githubusercontent.com/rmj1001/final-realm/main/src/final-realm-mgr.sh | bash
 ```
 
 ## Screenshots

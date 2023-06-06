@@ -8,7 +8,7 @@ function PRINT() {
 }
 
 function LOWERCASE() {
-    NPRINT "${1}" | tr "[:upper:]" "[:lower:]"
+    printf "%b" "${1}" | tr "[:upper:]" "[:lower:]"
 }
 
 ###################################################
@@ -16,6 +16,7 @@ function LOWERCASE() {
 ###################################################
 function ctrl_c() {
     clear
+    exit 0
 }
 
 trap ctrl_c INT
@@ -79,9 +80,15 @@ while [[ $EXIT -ne 0 ]]; do
     PRINT "1. Install or Upate"
     PRINT "2. Uninstall"
     PRINT
+    PRINT "0. Exit"
+    PRINT
     read -r -p "ID > " option
 
-    case "$(LOWERCASE "${1}")" in
+    case "$(LOWERCASE ${option})" in
+    0 | 'exit')
+        clear
+        exit 0
+        ;;
     1 | 'install or update' | 'install' | 'update')
         clone_or_update_repo
         install_files
