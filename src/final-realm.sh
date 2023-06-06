@@ -206,7 +206,7 @@ function HEADER() {
 # [ Sourcing & Maintenance ] #
 ###################################################
 EXIT=1
-export PROFILES="./.profiles"
+export PROFILES="${HOME}/.local/share/final-realm/profiles"
 export ALLOW_ADMIN=1 # Default value, possibly overwritten in ENV
 
 ###################################################
@@ -247,7 +247,7 @@ export price_kit_smithing=350
 
 # Generate the path for a profile
 function profile_path() {
-    PROFILE_FILE="${PROFILES}/$(LOWERCASE ${1}).sh"
+    PROFILE_FILE="${PROFILES}/$(LOWERCASE "${1}").sh"
     export PROFILE_FILE
 }
 
@@ -285,6 +285,8 @@ function save_profile() {
     # Append profile file
 
     [[ "${PLAYERNAME}" == "" ]] && return 1
+
+    [[ -d "${PROFILES}" ]] || mkdir -p "${PROFILES}"
 
     PRINT "#!/usr/bin/env bash" >"${PROFILE_FILE}"
 
