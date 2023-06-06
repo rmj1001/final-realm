@@ -128,7 +128,8 @@ function IS_NUMBER() {
 # Usage: TIMESTAMP [-m/--multiline]?
 # Returns: string
 function TIMESTAMP() {
-    local timestamp="$(date +"%I:%M%P %m/%d/%Y")"
+    local timestamp
+    timestamp="$(date +"%I:%M%P %m/%d/%Y")"
 
     # Multi-line timestamp flag
     [[ "${1}" == "-m" || "${1}" == "--multiline" ]] && timestamp="$(date +"%I:%M%P")\n$(date +"%m/%d/%Y")"
@@ -143,7 +144,7 @@ function ctrl_c() {
     PRINT "\n"
     [[ -z "${option}" ]] && PRINT "Canceling.\n"
 
-    [[ -n "${USERNAME}" ]] && save_profile
+    [[ -n "${PLAYERNAME}" ]] && save_profile
 
     clear
     exit 0
@@ -201,15 +202,12 @@ function HEADER() {
 ###################################################
 EXIT=1
 export PROFILES="./.profiles"
-export ENV="./.env.sh"
 export ALLOW_ADMIN=1 # Default value, possibly overwritten in ENV
 
-# Source developer environment file if it exists
-[[ -e "${ENV}" ]] && . "${ENV}"
-
 ###################################################
-# [ Prices for Mundane Items ] #
+# [ Shop Prices ] #
 ###################################################
+# [ Mundane Items Pricing ] #
 export price_gold_mail=300
 export price_bone=550
 export price_dragon_hide=750
@@ -218,7 +216,7 @@ export price_potion=200
 export price_food=100
 export price_ingot=473
 export price_seed=150
-export price_rfood=100
+export price_rotten_food=100
 export price_bait=2
 export price_fur=200
 export price_ore=500
@@ -227,13 +225,25 @@ export price_gem=1000
 export price_bow=713
 export price_magical_orb=15000
 
+# [ Skill Kits Pricing ] #
+export price_kit_thieving=50
+export price_kit_hunting=100
+export price_kit_fishing=100
+export price_kit_farming=150
+export price_kit_tailoring=30
+export price_kit_cooking=100
+export price_kit_woodcutting=200
+export price_kit_mining=300
+export price_kit_smithing=350
+
 ###################################################
 # [ Profile Manipulation ] #
 ###################################################
 
 # Generate the path for a profile
 function profile_path() {
-    export PROFILE_FILE="${PROFILES}/$(LOWERCASE ${1}).sh"
+    PROFILE_FILE="${PROFILES}/$(LOWERCASE ${1}).sh"
+    export PROFILE_FILE
 }
 
 # Check to see if a profile already exists
@@ -259,6 +269,8 @@ function open_profile() {
 
     # Source profile file
     profile_path "${1}"
+
+    # shellcheck source=/dev/null
     . "${PROFILE_FILE}"
 
     return 0
@@ -266,6 +278,9 @@ function open_profile() {
 
 function save_profile() {
     # Append profile file
+
+    [[ "${PLAYERNAME}" == "" ]] && return 1
+
     PRINT "#!/usr/bin/env bash" >"${PROFILE_FILE}"
 
     APPEND() {
@@ -280,7 +295,7 @@ function save_profile() {
     APPEND "# [ User Account & Settings ]"
     APPEND "###################################################"
     APPEND
-    APPEND "export USERNAME='${USERNAME}'"
+    APPEND "export PLAYERNAME='${PLAYERNAME}'"
     APPEND "export PASSWORD='${PASSWORD}'"
     APPEND "export ADMIN=${ADMIN:-0} # Set to 1 to enable Admin access"
     APPEND ""
@@ -398,7 +413,7 @@ function save_profile() {
     APPEND "export bank_5_status='${bank_5_status:-Open}'"
     APPEND ""
     APPEND "# [ Mundane Items Inventory ] #"
-    APPEND "export gold_mail=${gold_mail:-0}"
+    APPEND "export goblin_mail=${gold_mail:-0}"
     APPEND "export bone=${bone:-0}"
     APPEND "export dragon_hide=${dragon_hide:-0}"
     APPEND "export runic_tablet=${runic_tablet:-0}"
@@ -476,39 +491,6 @@ function save_profile() {
     APPEND "export magic_sword_8=${magic_sword_8:-0}"
     APPEND "export magic_sword_9=${magic_sword_9:-0}"
     APPEND "export magic_sword_10=${magic_sword_10:-0}"
-    APPEND ""
-    APPEND "###################################################"
-    APPEND "# [ Shop Prices ]"
-    APPEND "###################################################"
-    APPEND ""
-    APPEND "# [ Mundane Items Pricing ] #"
-    APPEND "export price_gold_mail=300"
-    APPEND "export price_bone=550"
-    APPEND "export price_dragon_hide=750"
-    APPEND "export price_runic_tablet=250"
-    APPEND "export price_potion=200"
-    APPEND "export price_food=100"
-    APPEND "export price_ingot=473"
-    APPEND "export price_seed=150"
-    APPEND "export price_rotten_food=100"
-    APPEND "export price_bait=2"
-    APPEND "export price_fur=200"
-    APPEND "export price_ore=500"
-    APPEND "export price_log=275"
-    APPEND "export price_gem=1000"
-    APPEND "export price_bow=713"
-    APPEND "export price_magical_orb=15000"
-    APPEND
-    APPEND "# [ Skill Kits Pricing ] # "
-    APPEND "export price_kit_thieving=50"
-    APPEND "export price_kit_hunting=100"
-    APPEND "export price_kit_fishing=100"
-    APPEND "export price_kit_farming=150"
-    APPEND "export price_kit_tailoring=30"
-    APPEND "export price_kit_cooking=100"
-    APPEND "export price_kit_woodcutting=200"
-    APPEND "export price_kit_mining=300"
-    APPEND "export price_kit_smithing=350"
 }
 
 ###################################################
@@ -574,9 +556,9 @@ function first_menu() {
 ###################################################
 function login() {
     HEADER
-    read -r -p "Username > " USERNAME
+    read -r -p "Username > " PLAYERNAME
 
-    open_profile "$USERNAME" || first_menu
+    open_profile "$PLAYERNAME" || first_menu
 
     read -r -s -p "Password (cAsE sEnsiTivE) > " password
     PRINT
@@ -596,11 +578,11 @@ function login() {
 ###################################################
 function register() {
     HEADER
-    read -r -p "Username > " USERNAME
+    read -r -p "Username > " PLAYERNAME
 
     # If profile file exists, cancel registration.
-    profile_exists "${USERNAME}" && {
-        PRINT "\nProfile '${USERNAME}' already exists."
+    profile_exists "${PLAYERNAME}" && {
+        PRINT "\nProfile '${PLAYERNAME}' already exists."
         PAUSE
         first_menu
     }
@@ -626,7 +608,7 @@ function register() {
     save_profile
 
     # Confirmation
-    PRINT "\nProfile '${USERNAME}' created!"
+    PRINT "\nProfile '${PLAYERNAME}' created!"
     PAUSE
 
     first_menu
@@ -767,7 +749,7 @@ function game_menu() {
     TITLE "Final Realm"
     while [[ $EXIT -ne 0 ]]; do
         HEADER
-        PRINT "Welcome to Final Realm, ${USERNAME}."
+        PRINT "Welcome to Final Realm, ${PLAYERNAME}."
         PRINT "What would you like to do?"
         PRINT
         PRINT "#######################"
@@ -943,6 +925,12 @@ function the_guilds() {
             ;;
 
         1 | 'begging')
+            ((money >= 100)) && {
+                PRINT "You have too much money to beg."
+                PAUSE
+                continue
+            }
+
             GUILD_NAME="begging"
             GUILD_LEVEL=${begging_level}
             GUILD_XP_TARGET=${begging_xp_target}
@@ -1123,8 +1111,6 @@ function the_guilds() {
         esac
     done
 
-    # TODO: Fix this (even with one material it doesn't allow work)
-    # Check if the guild requires a kit and the players has a kit
     [[ $KIT_REQUIRED == true ]] && [[ $OWNS_KIT == false ]] && {
         PRINT "You do not have the required kit."
         PRINT "Please purchase it from guild store."
@@ -1135,9 +1121,16 @@ function the_guilds() {
     while [[ $EXIT -ne 0 ]]; do
 
         # Check if the guild requires materials and the player has some of it
-        [[ $MATERIAL_REQUIRED == true ]] && [[ $TOTAL_MATERIALS -eq 0 ]] && {
+        [[ $MATERIAL_REQUIRED == true ]] && ((TOTAL_MATERIALS <= 0)) && {
             PRINT "You do not have enough materials."
             PRINT "Please obtain some '${MATERIAL_NAME}'."
+            PAUSE
+            the_guilds
+        }
+
+        # If they make over 100 gold and they're begging, they have to stop
+        ((money >= 100)) && [[ "${GUILD_NAME}" == "begging" ]] && {
+            PRINT "You have too much money to beg."
             PAUSE
             the_guilds
         }

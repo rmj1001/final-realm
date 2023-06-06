@@ -59,20 +59,20 @@ export armor_price=0
 export player_xp=0
 export xp_until_next_level=500
 export original_xp=500
-export money=505
+export money=470
 export key=0
 export damage=0
 export total_level=13
 
 # [ Begging Skill Stats ] #
-export begging_level=1
+export begging_level=6
 export begging_xp_target=100
-export begging_xp_total=45
+export begging_xp_total=85
 
 # [ Thieving Skill Stats ] #
-export thieving_level=1
+export thieving_level=4
 export thieving_xp_target=100
-export thieving_xp_total=36
+export thieving_xp_total=5
 
 # [ Hunting Skill Stats ] #
 export hunting_level=3
@@ -90,7 +90,7 @@ export farming_xp_target=100
 export farming_xp_total=31
 
 # [ Tailoring Skill Stats ] #
-export tailoring_level=3
+export tailoring_level=4
 export tailoring_xp_target=100
 export tailoring_xp_total=85
 
@@ -131,11 +131,11 @@ export bank_5_gold=0
 export bank_5_status='Open'
 
 # [ Mundane Items Inventory ] #
-export gold_mail=0
+export goblin_mail=0
 export bone=0
 export dragon_hide=0
 export runic_tablet=0
-export clothes=51
+export clothes=71
 export food=50
 export cooked_food=0
 export bait=0
@@ -143,7 +143,7 @@ export potion=0
 export ingot=0
 export seed=0
 export bow=0
-export fur=0
+export fur=10
 export gem=0
 export log=0
 export ore=0
@@ -209,36 +209,3 @@ export magic_sword_7=0
 export magic_sword_8=0
 export magic_sword_9=0
 export magic_sword_10=0
-
-###################################################
-# [ Shop Prices ]
-###################################################
-
-# [ Mundane Items Pricing ] #
-export price_gold_mail=300
-export price_bone=550
-export price_dragon_hide=750
-export price_runic_tablet=250
-export price_potion=200
-export price_food=100
-export price_ingot=473
-export price_seed=150
-export price_rotten_food=100
-export price_bait=2
-export price_fur=200
-export price_ore=500
-export price_log=275
-export price_gem=1000
-export price_bow=713
-export price_magical_orb=15000
-
-# [ Skill Kits Pricing ] # 
-export price_kit_thieving=50
-export price_kit_hunting=100
-export price_kit_fishing=100
-export price_kit_farming=150
-export price_kit_tailoring=30
-export price_kit_cooking=100
-export price_kit_woodcutting=200
-export price_kit_mining=300
-export price_kit_smithing=350
