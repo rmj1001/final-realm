@@ -13,43 +13,9 @@
 # [ User Account & Settings ]
 ###################################################
 
-export USERNAME='admin'
+export PLAYERNAME='admin'
 export PASSWORD='testing'
 export ADMIN=0 # Set to 1 to enable Admin access
-
-###################################################
-# [ Temporary Variables ]
-###################################################
-export cost=0
-export cost1=0
-export gcho=0
-export echo=0
-export e2cho=0
-export e1=0
-export npc_damage=0
-export ls1=0
-export killcount=0
-export ls2=0
-export la1=0
-export la2=0
-export hitpoints=100
-export original_hitpoints=100
-export armor_type='None'
-export sword_type='None'
-export sword_kind='Hand'
-export buyword1='hi'
-export buyword2='hi'
-export current_level=1
-export aan='a'
-export bank_gold=0
-export sword_choice='hi'
-export sword_choice2='hi'
-export sword_choice3='hi'
-export sword_exist='hi'
-export sword_price=0
-export armor_choice='hi'
-export armor_choice2='Armor'
-export armor_price=0
 
 ###################################################
 # [ Player Statistics ]
@@ -130,6 +96,19 @@ export bank_4_status='Open'
 export bank_5_gold=0
 export bank_5_status='Open'
 
+# Only skill that doesn't require a kit is begging, which no longer works
+# once you earn enough gold for a fishing or hunting kit (100 gold)
+# [ Skill Kits Inventory ] #
+export kit_thieving='Owned'
+export kit_hunting='Owned'
+export kit_fishing='Owned'
+export kit_farming='Owned'
+export kit_tailoring='Owned'
+export kit_cooking='Owned'
+export kit_woodcutting='Owned'
+export kit_mining='Owned'
+export kit_smithing='Owned'
+
 # [ Mundane Items Inventory ] #
 export goblin_mail=0
 export bone=0
@@ -149,63 +128,19 @@ export log=0
 export ore=0
 export magical_orb=0
 
-# Only skill that doesn't require a kit is begging, which no longer works
-# once you earn enough gold for a fishing or hunting kit (100 gold)
-# [ Skill Kits Inventory ] #
-export kit_thieving=true
-export kit_hunting=true
-export kit_fishing=true
-export kit_farming=true
-export kit_tailoring=true
-export kit_cooking=true
-export kit_woodcutting=true
-export kit_mining=true
-export kit_smithing=true
+# [ Armor ] #
+export armor_name='None'
+export armor_type='None'
+export armor_class=3 # Must be met or exceeded to hit
 
-# [ Armor Inventory ] #
-export armor_1=0
-export armor_2=0
-export armor_3=0
-export armor_4=0
-export armor_5=0
-export armor_6=0
-export armor_7=0
-export armor_8=0
-export armor_9=0
-export armor_10=0
-export armor_11=0
-export armor_12=0
-export magic_armor_1=0
-export magic_armor_2=0
-export magic_armor_3=0
-export magic_armor_4=0
-export magic_armor_5=0
-export magic_armor_6=0
-export magic_armor_7=0
-export magic_armor_8=0
-export magic_armor_9=0
-export magic_armor_10=0
+# [ Weapon ] #
+export weapon_name='Your Hand'
+export weapon_type='None'
+export weapon_hit_dc=3 # Must be met or exceeded to hit
+export weapon_dmg=3 # Damage dealt when hit
 
-# [ Swords Inventory ] #
-export sword_1=0
-export sword_2=0
-export sword_3=0
-export sword_4=0
-export sword_5=0
-export sword_6=0
-export sword_7=0
-export sword_8=0
-export sword_9=0
-export sword_10=0
-export sword_11=0
-export sword_12=0
-export magic_sword_1=0
-export magic_sword_2=0
-export magic_sword_3=0
-export magic_sword_4=0
-export magic_sword_5=0
-export magic_sword_6=0
-export magic_sword_7=0
-export magic_sword_8=0
-export magic_sword_9=0
-export magic_sword_10=0
+# [ Magic Wand ] #
+export magic_wand_name='None'
+export magic_wand_type='None' # Elemental damage
+export magic_wand_hit_dc=0 # Must be met or exceeded to hit
+export magic_wand_dmg=0 # Damage dealt when hit

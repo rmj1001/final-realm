@@ -140,14 +140,19 @@ function TIMESTAMP() {
 ###################################################
 # [ Handling SIGINT ] #
 ###################################################
-function ctrl_c() {
-    PRINT "\n"
-    [[ -z "${option}" ]] && PRINT "Canceling.\n"
-
+function stop_game() {
     [[ -n "${PLAYERNAME}" ]] && save_profile
 
+    HEADER
+    PRINT "Thanks for playing final realm!!!!!"
+    PAUSE
     clear
-    exit 0
+    [[ "${1}" == "--logout" ]] || exit 0
+    first_menu
+}
+
+function ctrl_c() {
+    stop_game
 }
 
 trap ctrl_c INT
@@ -300,40 +305,6 @@ function save_profile() {
     APPEND "export ADMIN=${ADMIN:-0} # Set to 1 to enable Admin access"
     APPEND ""
     APPEND "###################################################"
-    APPEND "# [ Temporary Variables ]"
-    APPEND "###################################################"
-    APPEND "export cost=${cost:-0}"
-    APPEND "export cost1=${cost1:-0}"
-    APPEND "export gcho=${gcho:-0}"
-    APPEND "export echo=${echo:-0}"
-    APPEND "export e2cho=${e2cho:-0}"
-    APPEND "export e1=${e1:-0}"
-    APPEND "export npc_damage=${npc_damage:-0}"
-    APPEND "export ls1=${ls1:-0}"
-    APPEND "export killcount=${killcount:-0}"
-    APPEND "export ls2=${ls2:-0}"
-    APPEND "export la1=${la1:-0}"
-    APPEND "export la2=${la2:-0}"
-    APPEND "export hitpoints=${hitpoints:-100}"
-    APPEND "export original_hitpoints=${original_hitpoints:-100}"
-    APPEND "export armor_type='${armor_type:-None}'"
-    APPEND "export sword_type='${sword_type:-None}'"
-    APPEND "export sword_kind='${sword_kind:-Hand}'"
-    APPEND "export buyword1='${buyword1:-hi}'"
-    APPEND "export buyword2='${buyword2:-hi}'"
-    APPEND "export current_level=${current_level:-1}"
-    APPEND "export aan='${aan:-a}'"
-    APPEND "export bank_gold=${bank_gold:-0}"
-    APPEND "export sword_choice='${sword_choice:-hi}'"
-    APPEND "export sword_choice2='${sword_choice2:-hi}'"
-    APPEND "export sword_choice3='${sword_choice3:-hi}'"
-    APPEND "export sword_exist='${sword_exist:-hi}'"
-    APPEND "export sword_price=${sword_price:-0}"
-    APPEND "export armor_choice='${armor_choice:-hi}'"
-    APPEND "export armor_choice2='${armor_choice2:-Armor}'"
-    APPEND "export armor_price=${armor_price:-0}"
-    APPEND ""
-    APPEND "###################################################"
     APPEND "# [ Player Statistics ]"
     APPEND "###################################################"
     APPEND ""
@@ -412,8 +383,21 @@ function save_profile() {
     APPEND "export bank_5_gold=${bank_5_gold:-0}"
     APPEND "export bank_5_status='${bank_5_status:-Open}'"
     APPEND ""
+    APPEND "# Only skill that doesn't require a kit is begging, which no longer works"
+    APPEND "# once you earn enough gold for a fishing or hunting kit (100 gold)"
+    APPEND "# [ Skill Kits Inventory ] #"
+    APPEND "export kit_thieving='${kit_thieving:-Not Owned}'"
+    APPEND "export kit_hunting='${kit_hunting:-Not Owned}'"
+    APPEND "export kit_fishing='${kit_fishing:-Not Owned}'"
+    APPEND "export kit_farming='${kit_farming:-Not Owned}'"
+    APPEND "export kit_tailoring='${kit_tailoring:-Not Owned}'"
+    APPEND "export kit_cooking='${kit_cooking:-Not Owned}'"
+    APPEND "export kit_woodcutting='${kit_woodcutting:-Not Owned}'"
+    APPEND "export kit_mining='${kit_mining:-Not Owned}'"
+    APPEND "export kit_smithing='${kit_smithing:-Not Owned}'"
+    APPEND ""
     APPEND "# [ Mundane Items Inventory ] #"
-    APPEND "export goblin_mail=${gold_mail:-0}"
+    APPEND "export goblin_mail=${goblin_mail:-0}"
     APPEND "export bone=${bone:-0}"
     APPEND "export dragon_hide=${dragon_hide:-0}"
     APPEND "export runic_tablet=${runic_tablet:-0}"
@@ -431,66 +415,22 @@ function save_profile() {
     APPEND "export ore=${ore:-0}"
     APPEND "export magical_orb=${magical_orb:-0}"
     APPEND ""
-    APPEND "# Only skill that doesn't require a kit is begging, which no longer works"
-    APPEND "# once you earn enough gold for a fishing or hunting kit (100 gold)"
-    APPEND "# [ Skill Kits Inventory ] #"
-    APPEND "export kit_thieving=${kit_thieving:-false}"
-    APPEND "export kit_hunting=${kit_hunting:-false}"
-    APPEND "export kit_fishing=${kit_fishing:-false}"
-    APPEND "export kit_farming=${kit_farming:-false}"
-    APPEND "export kit_tailoring=${kit_tailoring:-false}"
-    APPEND "export kit_cooking=${kit_cooking:-false}"
-    APPEND "export kit_woodcutting=${kit_woodcutting:-false}"
-    APPEND "export kit_mining=${kit_mining:-false}"
-    APPEND "export kit_smithing=${kit_smithing:-false}"
-    APPEND ""
-    APPEND "# [ Armor Inventory ] #"
-    APPEND "export armor_1=${armor_1:-0}"
-    APPEND "export armor_2=${armor_2:-0}"
-    APPEND "export armor_3=${armor_3:-0}"
-    APPEND "export armor_4=${armor_4:-0}"
-    APPEND "export armor_5=${armor_5:-0}"
-    APPEND "export armor_6=${armor_6:-0}"
-    APPEND "export armor_7=${armor_7:-0}"
-    APPEND "export armor_8=${armor_8:-0}"
-    APPEND "export armor_9=${armor_9:-0}"
-    APPEND "export armor_10=${armor_10:-0}"
-    APPEND "export armor_11=${armor_11:-0}"
-    APPEND "export armor_12=${armor_12:-0}"
-    APPEND "export magic_armor_1=${magic_armor_1:-0}"
-    APPEND "export magic_armor_2=${magic_armor_2:-0}"
-    APPEND "export magic_armor_3=${magic_armor_3:-0}"
-    APPEND "export magic_armor_4=${magic_armor_4:-0}"
-    APPEND "export magic_armor_5=${magic_armor_5:-0}"
-    APPEND "export magic_armor_6=${magic_armor_6:-0}"
-    APPEND "export magic_armor_7=${magic_armor_7:-0}"
-    APPEND "export magic_armor_8=${magic_armor_8:-0}"
-    APPEND "export magic_armor_9=${magic_armor_9:-0}"
-    APPEND "export magic_armor_10=${magic_armor_10:-0}"
-    APPEND ""
-    APPEND "# [ Swords Inventory ] #"
-    APPEND "export sword_1=${sword_1:-0}"
-    APPEND "export sword_2=${sword_2:-0}"
-    APPEND "export sword_3=${sword_3:-0}"
-    APPEND "export sword_4=${sword_4:-0}"
-    APPEND "export sword_5=${sword_5:-0}"
-    APPEND "export sword_6=${sword_6:-0}"
-    APPEND "export sword_7=${sword_7:-0}"
-    APPEND "export sword_8=${sword_8:-0}"
-    APPEND "export sword_9=${sword_9:-0}"
-    APPEND "export sword_10=${sword_10:-0}"
-    APPEND "export sword_11=${sword_11:-0}"
-    APPEND "export sword_12=${sword_12:-0}"
-    APPEND "export magic_sword_1=${magic_sword_1:-0}"
-    APPEND "export magic_sword_2=${magic_sword_2:-0}"
-    APPEND "export magic_sword_3=${magic_sword_3:-0}"
-    APPEND "export magic_sword_4=${magic_sword_4:-0}"
-    APPEND "export magic_sword_5=${magic_sword_5:-0}"
-    APPEND "export magic_sword_6=${magic_sword_6:-0}"
-    APPEND "export magic_sword_7=${magic_sword_7:-0}"
-    APPEND "export magic_sword_8=${magic_sword_8:-0}"
-    APPEND "export magic_sword_9=${magic_sword_9:-0}"
-    APPEND "export magic_sword_10=${magic_sword_10:-0}"
+    APPEND "# [ Armor ] #"
+    APPEND "export armor_name='${armor_name:-None}'"
+    APPEND "export armor_type='${armor_type:-None}'"
+    APPEND "export armor_class=${armor_class:-3} # Must be met or exceeded to hit"
+    APPEND
+    APPEND "# [ Weapon ] #"
+    APPEND "export weapon_name='${weapon_name:-Your Hand}'"
+    APPEND "export weapon_type='${weapon_type:-None}'"
+    APPEND "export weapon_hit_dc=${weapon_hit_dc:-3} # Must be met or exceeded to hit"
+    APPEND "export weapon_dmg=${weapon_hit_dmg:-3} # Damage dealt when hit"
+    APPEND
+    APPEND "# [ Magic Wand ] #"
+    APPEND "export magic_wand_name='${magic_wand_name:-None}'"
+    APPEND "export magic_wand_type='${magic_wand_type:-None}' # Elemental damage"
+    APPEND "export magic_wand_hit_dc=${magic_wand_hit_dc:-0} # Must be met or exceeded to hit"
+    APPEND "export magic_wand_dmg=${magic_wand_hit_dmg:-0} # Damage dealt when hit"
 }
 
 ###################################################
@@ -516,9 +456,7 @@ function first_menu() {
         case "$(LOWERCASE ${option})" in
 
         0 | 'exit')
-            clear
-            save_profile
-            exit 0
+            stop_game
             ;;
 
         1 | 'login')
@@ -788,9 +726,7 @@ function game_menu() {
 
         case "$(LOWERCASE ${option})" in
         0 | 'log out')
-            PRINT "Thanks for playing final realm!"
-            PAUSE
-            first_menu
+            stop_game --logout
             ;;
 
         1 | 'wander gielinor')
@@ -1111,7 +1047,7 @@ function the_guilds() {
         esac
     done
 
-    [[ $KIT_REQUIRED == true ]] && [[ $OWNS_KIT == false ]] && {
+    [[ $KIT_REQUIRED == true ]] && [[ $OWNS_KIT == 'Not Owned' ]] && {
         PRINT "You do not have the required kit."
         PRINT "Please purchase it from guild store."
         PAUSE
@@ -1344,7 +1280,53 @@ function the_smuggler() {
 # [ Player Inventory ] #
 ###################################################
 function player_inventory() {
-    PRINT "This has not yet been coded."
+    HEADER
+    PRINT "#######################"
+    PRINT "# Player Inventory"
+    PRINT "#######################"
+    PRINT
+    PRINT "# [ Finances ] #"
+    PRINT "Wallet: \t\t\$${money}"
+    PRINT "Bank 1: \t\t\$${bank_1_gold}"
+    PRINT "Bank 2: \t\t\$${bank_2_gold}"
+    PRINT "Bank 3: \t\t\$${bank_3_gold}"
+    PRINT "Bank 4: \t\t\$${bank_4_gold}"
+    PRINT "Bank 5: \t\t\$${bank_5_gold}"
+    PRINT
+    PRINT "# [ Kits ] #"
+    PRINT "Thieving: \t\t${kit_thieving}"
+    PRINT "Hunting: \t\t${kit_hunting}"
+    PRINT "Fishing: \t\t${kit_fishing}"
+    PRINT "Farming: \t\t${kit_farming}"
+    PRINT "Tailoring: \t\t${kit_tailoring}"
+    PRINT "Cooking: \t\t${kit_cooking}"
+    PRINT "Woodcutting: \t\t${kit_woodcutting}"
+    PRINT "Mining: \t\t${kit_mining}"
+    PRINT "Smithing: \t\t${kit_smithing}"
+    PRINT
+    PRINT "# [ Mundane Items ] #"
+    PRINT "Goblin Mail: \t\t${goblin_mail}"
+    PRINT "Bone: \t\t\t${bone}"
+    PRINT "Dragon Hide: \t\t${dragon_hide}"
+    PRINT "Runic Tablet: \t\t${runic_tablet}"
+    PRINT "Clothes: \t\t${clothes}"
+    PRINT "Food: \t\t\t${food}"
+    PRINT "Cooked Food: \t\t${cooked_food}"
+    PRINT "Bait: \t\t\t${bait}"
+    PRINT "Potion: \t\t${potion}"
+    PRINT "Ingot: \t\t\t${ingot}"
+    PRINT "Seed: \t\t\t${seed}"
+    PRINT "Bow: \t\t\t${bow}"
+    PRINT "Fur: \t\t\t${fur}"
+    PRINT "Gem: \t\t\t${gem}"
+    PRINT "Log: \t\t\t${log}"
+    PRINT "Ore: \t\t\t${ore}"
+    PRINT "Magical Orb: \t\t${magical_orb}"
+    PRINT
+    PRINT "# [ Combat ] #"
+    PRINT "Armor: \t\t\t${armor_name}"
+    PRINT "Weapon: \t\t${weapon_name}"
+    PRINT "Magic Wand: \t\t${magic_wand_name}"
     PAUSE
 }
 
