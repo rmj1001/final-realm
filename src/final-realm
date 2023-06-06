@@ -455,7 +455,7 @@ function first_menu() {
         read -r -p "ID > " option
         LINES
 
-        case "$(LOWERCASE ${option})" in
+        case "$(LOWERCASE "${option}")" in
 
         0 | 'exit')
             stop_game
@@ -573,13 +573,13 @@ function developer_console() {
         PRINT "0. Exit"
         PRINT
         read -r -p "ID > " option
-        case "$(LOWERCASE ${option})" in
+        case "$(LOWERCASE "${option}")" in
         0 | exit)
             first_menu
             ;;
 
         1 | 'list profiles')
-            [[ ! $(ls -A ${PROFILES}) ]] && {
+            [[ ! $(ls -A "${PROFILES}") ]] && {
                 LINES
                 PRINT "There are no profiles."
                 LINES
@@ -599,7 +599,7 @@ function developer_console() {
             continue
             ;;
         2 | 'delete a profile')
-            [[ ! $(ls -A ${PROFILES}) ]] && {
+            [[ ! $(ls -A "${PROFILES}") ]] && {
                 LINES
                 PRINT "There are no profiles to delete."
                 LINES
@@ -624,7 +624,7 @@ function developer_console() {
             continue
             ;;
         3 | 'enable admin for profile')
-            [[ ! $(ls -A ${PROFILES}) ]] && {
+            [[ ! $(ls -A "${PROFILES}") ]] && {
                 LINES
                 PRINT "There are no profiles to delete."
                 LINES
@@ -644,7 +644,7 @@ function developer_console() {
             continue
             ;;
         4 | 'disable admin for profile')
-            [[ ! $(ls -A ${PROFILES}) ]] && {
+            [[ ! $(ls -A "${PROFILES}") ]] && {
                 LINES
                 PRINT "There are no profiles."
                 LINES
@@ -719,7 +719,7 @@ function game_menu() {
         read -r -p "Choose an Option > " option
         LINES
 
-        case "$(LOWERCASE ${option})" in
+        case "$(LOWERCASE "${option}")" in
         0 | 'log out')
             stop_game --logout
             ;;
@@ -850,7 +850,7 @@ function the_guilds() {
         read -r -p "ID > " option
         LINES
 
-        case "$(LOWERCASE ${option})" in
+        case "$(LOWERCASE "${option}")" in
         0 | 'go back')
             game_menu
             ;;
@@ -1084,7 +1084,7 @@ function the_guilds() {
         LINES
         read -r -p "ID > " option
         LINES
-        case "$(LOWERCASE ${option})" in
+        case "$(LOWERCASE "${option}")" in
         0 | 'go back')
             the_guilds
             ;;
@@ -1344,7 +1344,7 @@ function player_inventory() {
         PRINT
         LINES
         read -r -p "ID > " option
-        case "$(LOWERCASE ${option})" in
+        case "$(LOWERCASE "${option}")" in
         0 | 'go back')
             game_menu
             ;;
