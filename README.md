@@ -7,12 +7,28 @@ Final Realm wasn't compatible with the DOS emulators I've tried out (I run Linux
 decided to create a re-written version of Final Realm that aims to be cross-compatible with
 any platform that runs Bash (will be written in POSIX once the initial logic is squared away).
 
-## Installation
+## Installation/Update/Uninstallation
 
-Run the command below to install Final Realm. RUN AT YOUR OWN RISK.
+The following commands will manage the Final Realm Installation
+
+### Final Realm is NOT installed
 
 ```bash
 bash <(wget -qO- https://raw.githubusercontent.com/rmj1001/final-realm/main/src/final-realm-mgr.sh)
+```
+
+### Final Realm IS installed
+
+```bash
+final-realm-mgr
+```
+
+## How to run Final Realm
+
+Once installed, just run the below command anywhere.
+
+```bash
+final-realm
 ```
 
 ## Screenshots

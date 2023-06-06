@@ -54,9 +54,8 @@ function clone_or_update_repo() {
 # [ Install files ] #
 ###################################################
 function install_files() {
-    [[ -d "${bin}" ]] || mkdir -p "${bin}"
-    sudo install -m +x -o "${USER}" -t "${bin}" "${repository}/src/final-realm"
-    sudo install -m +x -o "${USER}" -t "${bin}" "${repository}/src/final-realm-mgr"
+    install -v -m 700 -o "${USER}" -D -t "${bin}" "${repository}/src/final-realm"
+    install -v -m 700 -o "${USER}" -D -t "${bin}" "${repository}/src/final-realm-mgr"
 }
 
 ###################################################
