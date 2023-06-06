@@ -30,7 +30,7 @@ trap ctrl_c INT
 ###################################################
 project_folder="${HOME}/.local/share/final-realm"
 repository="${project_folder}/repository"
-bin="/usr/bin"
+bin="${HOME}/.local/bin"
 game="${bin}/final-realm"
 mgr="${bin}/final-realm-mgr"
 EXIT=1
