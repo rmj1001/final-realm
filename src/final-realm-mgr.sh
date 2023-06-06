@@ -43,13 +43,10 @@ function clone_or_update_repo() {
 
     [[ $REPO_EXISTS == true ]] && {
         cd "${repository}" && git pull && return 0
-        PAUSE
     }
 
     mkdir -p "${repository}"
     git clone git@github.com:rmj1001/final-realm.git "${repository}"
-
-    PAUSE
 }
 
 ###################################################
@@ -58,7 +55,6 @@ function clone_or_update_repo() {
 function install_files() {
     sudo install -m +x -t "${game}" "${repository}/final-realm.sh"
     sudo install -m +x -t "${mgr}" "${repository}/final-realm-mgr.sh"
-    PAUSE
 }
 
 ###################################################
@@ -68,7 +64,6 @@ function uninstall_files() {
     [[ -d "${project_folder}" ]] && rm -rf "${project_folder}"
     sudo rm -f "${game}"
     sudo rm -f "${mgr}"
-    PAUSE
 }
 
 ###################################################
@@ -101,21 +96,23 @@ while [[ $EXIT -ne 0 ]]; do
     1 | 'install or update' | 'install' | 'update')
         clone_or_update_repo
         install_files
+        PAUSE
         continue
         ;;
     2 | 'uninstall')
         uninstall_files
+        PAUSE
         continue
         ;;
     *)
         [[ -n "${option}" ]] && {
             PRINT "Invalid option '${option}'."
-            read -r -p "PRESS <ENTER> TO CONTINUE..."
+            PAUSE
             continue
         }
 
         PRINT "You must choose an option."
-        read -r -p "PRESS <ENTER> TO CONTINUE..."
+        PAUSE
         continue
         ;;
     esac
