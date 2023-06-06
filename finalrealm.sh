@@ -1280,54 +1280,117 @@ function the_smuggler() {
 # [ Player Inventory ] #
 ###################################################
 function player_inventory() {
-    HEADER
-    PRINT "#######################"
-    PRINT "# Player Inventory"
-    PRINT "#######################"
-    PRINT
-    PRINT "# [ Finances ] #"
-    PRINT "Wallet: \t\t\$${money}"
-    PRINT "Bank 1: \t\t\$${bank_1_gold}"
-    PRINT "Bank 2: \t\t\$${bank_2_gold}"
-    PRINT "Bank 3: \t\t\$${bank_3_gold}"
-    PRINT "Bank 4: \t\t\$${bank_4_gold}"
-    PRINT "Bank 5: \t\t\$${bank_5_gold}"
-    PRINT
-    PRINT "# [ Kits ] #"
-    PRINT "Thieving: \t\t${kit_thieving}"
-    PRINT "Hunting: \t\t${kit_hunting}"
-    PRINT "Fishing: \t\t${kit_fishing}"
-    PRINT "Farming: \t\t${kit_farming}"
-    PRINT "Tailoring: \t\t${kit_tailoring}"
-    PRINT "Cooking: \t\t${kit_cooking}"
-    PRINT "Woodcutting: \t\t${kit_woodcutting}"
-    PRINT "Mining: \t\t${kit_mining}"
-    PRINT "Smithing: \t\t${kit_smithing}"
-    PRINT
-    PRINT "# [ Mundane Items ] #"
-    PRINT "Goblin Mail: \t\t${goblin_mail}"
-    PRINT "Bone: \t\t\t${bone}"
-    PRINT "Dragon Hide: \t\t${dragon_hide}"
-    PRINT "Runic Tablet: \t\t${runic_tablet}"
-    PRINT "Clothes: \t\t${clothes}"
-    PRINT "Food: \t\t\t${food}"
-    PRINT "Cooked Food: \t\t${cooked_food}"
-    PRINT "Bait: \t\t\t${bait}"
-    PRINT "Potion: \t\t${potion}"
-    PRINT "Ingot: \t\t\t${ingot}"
-    PRINT "Seed: \t\t\t${seed}"
-    PRINT "Bow: \t\t\t${bow}"
-    PRINT "Fur: \t\t\t${fur}"
-    PRINT "Gem: \t\t\t${gem}"
-    PRINT "Log: \t\t\t${log}"
-    PRINT "Ore: \t\t\t${ore}"
-    PRINT "Magical Orb: \t\t${magical_orb}"
-    PRINT
-    PRINT "# [ Combat ] #"
-    PRINT "Armor: \t\t\t${armor_name}"
-    PRINT "Weapon: \t\t${weapon_name}"
-    PRINT "Magic Wand: \t\t${magic_wand_name}"
-    PAUSE
+
+    function inventory_finance() {
+        PRINT "# [ Inventory: Finances ] #"
+        PRINT
+        PRINT "Wallet: \t\t\$${money}"
+        PRINT "Bank 1: \t\t\$${bank_1_gold}"
+        PRINT "Bank 2: \t\t\$${bank_2_gold}"
+        PRINT "Bank 3: \t\t\$${bank_3_gold}"
+        PRINT "Bank 4: \t\t\$${bank_4_gold}"
+        PRINT "Bank 5: \t\t\$${bank_5_gold}"
+    }
+
+    function inventory_kits() {
+        PRINT "# [ Inventory: Kits ] #"
+        PRINT
+        PRINT "Thieving: \t\t${kit_thieving}"
+        PRINT "Hunting: \t\t${kit_hunting}"
+        PRINT "Fishing: \t\t${kit_fishing}"
+        PRINT "Farming: \t\t${kit_farming}"
+        PRINT "Tailoring: \t\t${kit_tailoring}"
+        PRINT "Cooking: \t\t${kit_cooking}"
+        PRINT "Woodcutting: \t\t${kit_woodcutting}"
+        PRINT "Mining: \t\t${kit_mining}"
+        PRINT "Smithing: \t\t${kit_smithing}"
+    }
+
+    function inventory_mundane_items() {
+        PRINT "# [ Inventory: Mundane Items ] #"
+        PRINT
+        PRINT "Goblin Mail: \t\t${goblin_mail}"
+        PRINT "Bone: \t\t\t${bone}"
+        PRINT "Dragon Hide: \t\t${dragon_hide}"
+        PRINT "Runic Tablet: \t\t${runic_tablet}"
+        PRINT "Clothes: \t\t${clothes}"
+        PRINT "Food: \t\t\t${food}"
+        PRINT "Cooked Food: \t\t${cooked_food}"
+        PRINT "Bait: \t\t\t${bait}"
+        PRINT "Potion: \t\t${potion}"
+        PRINT "Ingot: \t\t\t${ingot}"
+        PRINT "Seed: \t\t\t${seed}"
+        PRINT "Bow: \t\t\t${bow}"
+        PRINT "Fur: \t\t\t${fur}"
+        PRINT "Gem: \t\t\t${gem}"
+        PRINT "Log: \t\t\t${log}"
+        PRINT "Ore: \t\t\t${ore}"
+        PRINT "Magical Orb: \t\t${magical_orb}"
+    }
+
+    function inventory_combat_gear() {
+        PRINT "# [ Inventory: Combat Gear ] #"
+        PRINT
+        PRINT "Armor: \t\t\t${armor_name}"
+        PRINT "Weapon: \t\t${weapon_name}"
+        PRINT "Magic Wand: \t\t${magic_wand_name}"
+    }
+
+    while [[ ${EXIT} -ne 0 ]]; do
+        HEADER
+        PRINT "Choose the inventory to view."
+        PRINT
+        PRINT "1. Wallet & Banking"
+        PRINT "2. Kits"
+        PRINT "3. Mundane Items"
+        PRINT "4. Combat Gear"
+        PRINT
+        PRINT "0. Go back"
+        PRINT
+        LINES
+        read -r -p "ID > " option
+        case "$(LOWERCASE ${option})" in
+        0 | 'go back')
+            game_menu
+            ;;
+        1 | 'wallet & banking')
+            HEADER
+            inventory_finance
+            PAUSE
+            continue
+            ;;
+        2 | 'kits')
+            HEADER
+            inventory_kits
+            PAUSE
+            continue
+            ;;
+        3 | 'mundane items')
+            HEADER
+            inventory_mundane_items
+            PAUSE
+            continue
+            ;;
+        4 | 'combat gear')
+            HEADER
+            inventory_combat_gear
+            PAUSE
+            continue
+            ;;
+        *)
+            [[ -n "${option}" ]] && {
+                PRINT "Invalid option '${option}'."
+                PAUSE
+                continue
+            }
+            [[ -z "${option}" ]] && {
+                PRINT "You must choose an option."
+                PAUSE
+                continue
+            }
+            ;;
+        esac
+    done
 }
 
 ###################################################
