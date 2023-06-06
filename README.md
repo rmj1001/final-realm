@@ -16,4 +16,6 @@ To install and run, clone this repository, enter the downloaded folder, and run 
 **NOTE:** There is a hidden folder that will be created for profiles.
 **Make sure to put the script in the directory you plan on keeping it in permanently.**
 
-![Final Realm Game Menu](images/Game%20Menu.png)
+[Click here to see game screenshots.](screenshots/)
+
+![Final Realm Game Menu](screenshots/1-Main-Screens/03-Game-Menu.png)
