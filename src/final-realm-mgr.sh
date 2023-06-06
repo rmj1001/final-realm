@@ -7,6 +7,10 @@ function PRINT() {
     printf "%b\n" "$@"
 }
 
+function PAUSE() {
+    read -r -p "PRESS <ENTER> TO CONTINUE..." throwaway
+}
+
 function LOWERCASE() {
     printf "%b" "${1}" | tr "[:upper:]" "[:lower:]"
 }
@@ -39,13 +43,13 @@ function clone_or_update_repo() {
 
     [[ $REPO_EXISTS == true ]] && {
         cd "${repository}" && git pull && return 0
-        read -r -p "PRESS <ENTER> TO CONTINUE..." throwaway
+        PAUSE
     }
 
     mkdir -p "${repository}"
     git clone git@github.com:rmj1001/final-realm.git "${repository}"
 
-    read -r -p "PRESS <ENTER> TO CONTINUE..." throwaway
+    PAUSE
 }
 
 ###################################################
@@ -54,7 +58,7 @@ function clone_or_update_repo() {
 function install_files() {
     sudo install -m +x -t "${game}" "${repository}/final-realm.sh"
     sudo install -m +x -t "${mgr}" "${repository}/final-realm-mgr.sh"
-    read -r -p "PRESS <ENTER> TO CONTINUE..." throwaway
+    PAUSE
 }
 
 ###################################################
@@ -64,7 +68,7 @@ function uninstall_files() {
     [[ -d "${project_folder}" ]] && rm -rf "${project_folder}"
     sudo rm -f "${game}"
     sudo rm -f "${mgr}"
-    read -r -p "PRESS <ENTER> TO CONTINUE..." throwaway
+    PAUSE
 }
 
 ###################################################
