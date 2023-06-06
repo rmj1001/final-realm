@@ -329,54 +329,54 @@ function save_profile() {
     APPEND "export total_level=${total_level:-13}"
     APPEND ""
     APPEND "# [ Begging Skill Stats ] #"
-    APPEND "export Begging_lvl=${Begging_lvl:-1}"
-    APPEND "export Begging_xp_target=${Begging_xp_target:-100}"
-    APPEND "export Begging_xp_total=${Begging_xp_total:-45}"
+    APPEND "export begging_lvl=${begging_lvl:-1}"
+    APPEND "export begging_xp_target=${begging_xp_target:-100}"
+    APPEND "export begging_xp_total=${begging_xp_total:-45}"
     APPEND ""
     APPEND "# [ Thieving Skill Stats ] #"
-    APPEND "export Thieving_lvl=${Thieving_lvl:-1}"
-    APPEND "export Thieving_xp_target=${Thieving_xp_target:-100}"
-    APPEND "export Thieving_xp_total=${Thieving_xp_total:-36}"
+    APPEND "export thieving_lvl=${thieving_lvl:-1}"
+    APPEND "export thieving_xp_target=${thieving_xp_target:-100}"
+    APPEND "export thieving_xp_total=${thieving_xp_total:-36}"
     APPEND ""
     APPEND "# [ Hunting Skill Stats ] #"
-    APPEND "export Hunting_lvl=${Hunting_lvl:-1}"
-    APPEND "export Hunting_xp_target=${Hunting_xp_target:-100}"
-    APPEND "export Hunting_xp_total=${Hunting_xp_total:-30}"
+    APPEND "export hunting_lvl=${hunting_lvl:-1}"
+    APPEND "export hunting_xp_target=${hunting_xp_target:-100}"
+    APPEND "export hunting_xp_total=${hunting_xp_total:-30}"
     APPEND ""
     APPEND "# [ Fishing Skill Stats ] #"
-    APPEND "export Fishing_lvl=${Fishing_lvl:-1}"
-    APPEND "export Fishing_xp_target=${Fishing_xp_target:-100}"
-    APPEND "export Fishing_xp_total=${Fishing_xp_total:-30}"
+    APPEND "export fishing_lvl=${fishing_lvl:-1}"
+    APPEND "export fishing_xp_target=${fishing_xp_target:-100}"
+    APPEND "export fishing_xp_total=${fishing_xp_total:-30}"
     APPEND ""
     APPEND "# [ Farming Skill Stats ] #"
-    APPEND "export Farming_lvl=${Farming_lvl:-1}"
-    APPEND "export Farming_xp_target=${Farming_xp_target:-100}"
-    APPEND "export Farming_xp_total=${Farming_xp_total:-31}"
+    APPEND "export farming_lvl=${farming_lvl:-1}"
+    APPEND "export farming_xp_target=${farming_xp_target:-100}"
+    APPEND "export farming_xp_total=${farming_xp_total:-31}"
     APPEND ""
     APPEND "# [ Tailoring Skill Stats ] #"
-    APPEND "export Tailoring_lvl=${Tailoring_lvl:-1}"
-    APPEND "export Tailoring_xp_target=${Tailoring_xp_target:-100}"
-    APPEND "export Tailoring_xp_total=${Tailoring_xp_total:-31}"
+    APPEND "export tailoring_lvl=${tailoring_lvl:-1}"
+    APPEND "export tailoring_xp_target=${tailoring_xp_target:-100}"
+    APPEND "export tailoring_xp_total=${tailoring_xp_total:-31}"
     APPEND ""
     APPEND "# [ Cooking Skill Stats ] #"
-    APPEND "export Cook_lvl=${Cook_lvl:-1}"
-    APPEND "export Cook_xp_target=${Cook_xp_target:-100}"
-    APPEND "export Cook_xp_total=${Cook_xp_total:-41}"
+    APPEND "export cooking_lvl=${cooking_lvl:-1}"
+    APPEND "export cooking_xp_target=${cooking_xp_target:-100}"
+    APPEND "export cooking_xp_total=${cooking_xp_total:-41}"
     APPEND ""
     APPEND "# [ Woodcutting Skill Stats ] #"
-    APPEND "export Woodcutting_lvl=${Woodcuting_lvl:-1}"
-    APPEND "export Woodcutting_xp_target=${Woodcutting_xp_target:-100}"
-    APPEND "export Woodcutting_xp_total=${Woodcutting_xp_total:-38}"
+    APPEND "export woodcutting_lvl=${woodcutting_lvl:-1}"
+    APPEND "export woodcutting_xp_target=${woodcutting_xp_target:-100}"
+    APPEND "export woodcutting_xp_total=${woodcutting_xp_total:-38}"
     APPEND ""
     APPEND "# [ Mining Skill Stats ] #"
-    APPEND "export Mining_lvl=${Mining_lvl:-1}"
-    APPEND "export Mining_xp_target=${Mining_xp_target:-100}"
-    APPEND "export Mining_xp_total=${Mining_xp_total:-35}"
+    APPEND "export mining_lvl=${mining_lvl:-1}"
+    APPEND "export mining_xp_target=${mining_xp_target:-100}"
+    APPEND "export mining_xp_total=${mining_xp_total:-35}"
     APPEND ""
     APPEND "# [ Smithing Skill Stats ] #"
-    APPEND "export Smithing_lvl=${Smithing_lvl:-1}"
-    APPEND "export Smithing_xp_target=${Smithing_xp_target:-100}"
-    APPEND "export Smithing_xp_total=${Smithing_xp_total:-33}"
+    APPEND "export smithing_lvl=${smithing_lvl:-1}"
+    APPEND "export smithing_xp_target=${smithing_xp_target:-100}"
+    APPEND "export smithing_xp_total=${smithing_xp_total:-33}"
     APPEND ""
     APPEND "###################################################"
     APPEND "# [ Banking & Inventory ]"
@@ -399,8 +399,9 @@ function save_profile() {
     APPEND "export bone=${bone:-0}"
     APPEND "export dragon_hide=${dragon_hide:-0}"
     APPEND "export runic_tablet=${runic_tablet:-0}"
+    APPEND "export clothes=${clothes:-0}"
     APPEND "export food=${food:-0}"
-    APPEND "export rotten_food=${rotten_food:-0}"
+    APPEND "export cooked_food=${cooked_food:-0}"
     APPEND "export bait=${bait:-0}"
     APPEND "export potion=${potion:-0}"
     APPEND "export ingot=${ingot:-0}"
@@ -415,15 +416,15 @@ function save_profile() {
     APPEND "# Only skill that doesn't require a kit is begging, which no longer works"
     APPEND "# once you earn enough gold for a fishing or hunting kit (100 gold)"
     APPEND "# [ Skill Kits Inventory ] #"
-    APPEND "export kit_thieving=${kit_thieivng:-0}"
-    APPEND "export kit_hunting=${kit_hunting:-0}"
-    APPEND "export kit_fishing=${kit_fishing:-0}"
-    APPEND "export kit_farming=${kit_farming:-0}"
-    APPEND "export kit_sewing=${kit_sewing:-0}"
-    APPEND "export kit_cooking=${kit_cooking:-0}"
-    APPEND "export kit_woodcutting=${kit_woodcutting:-0}"
-    APPEND "export kit_mining=${kit_mining:-0}"
-    APPEND "export kit_smithing=${kit_smithing:-0}"
+    APPEND "export kit_thieving=${kit_thieivng:-false}"
+    APPEND "export kit_hunting=${kit_hunting:-false}"
+    APPEND "export kit_fishing=${kit_fishing:-false}"
+    APPEND "export kit_farming=${kit_farming:-false}"
+    APPEND "export kit_tailoring=${kit_tailoring:-false}"
+    APPEND "export kit_cooking=${kit_cooking:-false}"
+    APPEND "export kit_woodcutting=${kit_woodcutting:-false}"
+    APPEND "export kit_mining=${kit_mining:-false}"
+    APPEND "export kit_smithing=${kit_smithing:-false}"
     APPEND ""
     APPEND "# [ Armor Inventory ] #"
     APPEND "export armor_1=${armor_1:-0}"
@@ -500,7 +501,7 @@ function save_profile() {
     APPEND "export price_kit_hunting=100"
     APPEND "export price_kit_fishing=100"
     APPEND "export price_kit_farming=150"
-    APPEND "export price_kit_sewing=30"
+    APPEND "export price_kit_tailoring=30"
     APPEND "export price_kit_cooking=100"
     APPEND "export price_kit_woodcutting=200"
     APPEND "export price_kit_mining=300"
@@ -893,8 +894,219 @@ function enter_stronghold() {
 # [ The Guilds ] #
 ###################################################
 function the_guilds() {
-    PRINT "This has not yet been coded."
-    PAUSE
+    TITLE "Final Realm | Guilds"
+
+    local GUILD=""
+    local GUILD_LVL=0
+    local GUILD_XP_TARGET=0
+    local GUILD_XP_TOTAL=0
+    local KIT_REQUIRED=true
+    local OWNS_KIT=false
+    local MATERIAL_REQUIRED=false
+    local MATERIAL_NAME=""
+    local TOTAL_MATERIALS=0
+
+    # Chooses the guild to work for
+    while [[ $EXIT -ne 0 ]]; do
+        HEADER
+        PRINT "Welcome to the guilds."
+        PRINT "Which guild would you like to work for?"
+        PRINT
+        PRINT "1. Begging"
+        PRINT "2. Thieving"
+        PRINT "3. Hunting"
+        PRINT "4. Fishing"
+        PRINT "5. Farming"
+        PRINT "6. Tailoring"
+        PRINT "7. Cooking"
+        PRINT "8. Woodcutting"
+        PRINT "9. Mining"
+        PRINT "10. Smithing"
+        PRINT
+        PRINT "11. Exit"
+        PRINT
+        LINES
+        read -r -p "ID > " scriptNumber
+        LINES
+
+        case "$(LOWERCASE ${scriptNumber})" in
+
+        1 | 'begging')
+            GUILD="begging"
+            GUILD_LVL=${begging_lvl}
+            GUILD_XP_TARGET=${begging_xp_target}
+            GUILD_XP_TOTAL=${begging_xp_total}
+
+            KIT_REQUIRED=false
+            break
+            ;;
+
+        2 | 'thieving')
+            GUILD="thieving"
+            GUILD_LVL=${thieving_lvl}
+            GUILD_XP_TARGET=${thieving_xp_target}
+            GUILD_XP_TOTAL=${thieving_xp_total}
+
+            KIT_REQUIRED=true
+            OWNS_KIT=${kit_thieving}
+            break
+            ;;
+
+        3 | 'hunting')
+            GUILD="hunting"
+            GUILD_LVL=${hunting_lvl}
+            GUILD_XP_TARGET=${hunting_xp_target}
+            GUILD_XP_TOTAL=${hunting_xp_total}
+
+            KIT_REQUIRED=true
+            OWNS_KIT=${kit_hunting}
+            break
+            ;;
+
+        4 | 'fishing')
+            GUILD="fishing"
+            GUILD_LVL=${fishing_lvl}
+            GUILD_XP_TARGET=${fishing_xp_target}
+            GUILD_XP_TOTAL=${fishing_xp_total}
+
+            KIT_REQUIRED=true
+            OWNS_KIT=${kit_fishing}
+
+            MATERIAL_REQUIRED=true
+            MATERIAL_NAME="bait"
+            TOTAL_MATERIALS=${bait}
+            break
+            ;;
+
+        5 | 'farming')
+            GUILD="farming"
+            GUILD_LVL=${farming_lvl}
+            GUILD_XP_TARGET=${farming_xp_target}
+            GUILD_XP_TOTAL=${farming_xp_total}
+
+            KIT_REQUIRED=true
+            OWNS_KIT=${kit_farming}
+
+            MATERIAL_REQUIRED=true
+            MATERIAL_NAME="seed"
+            TOTAL_MATERIALS=${seed}
+            break
+            ;;
+
+        6 | 'tailoring')
+            GUILD="tailoring"
+            GUILD_LVL=${tailoring_lvl}
+            GUILD_XP_TARGET=${tailoring_xp_target}
+            GUILD_XP_TOTAL=${tailoring_xp_total}
+
+            KIT_REQUIRED=true
+            OWNS_KIT=${kit_tailoring}
+
+            MATERIAL_REQUIRED=true
+            MATERIAL_NAME="fur"
+            TOTAL_MATERIALS=${fur}
+            break
+            ;;
+
+        7 | 'cooking')
+            GUILD="cooking"
+            GUILD_LVL=${cooking_lvl}
+            GUILD_XP_TARGET=${cooking_xp_target}
+            GUILD_XP_TOTAL=${cooking_xp_total}
+
+            KIT_REQUIRED=true
+            OWNS_KIT=${kit_cooking}
+
+            MATERIAL_REQUIRED=true
+            MATERIAL_NAME="food"
+            TOTAL_MATERIALS=${food}
+            break
+            ;;
+
+        8 | 'woodcutting')
+            GUILD="woodcutting"
+            GUILD_LVL=${woodcutting_lvl}
+            GUILD_XP_TARGET=${woodcutting_xp_target}
+            GUILD_XP_TOTAL=${woodcutting_xp_total}
+
+            KIT_REQUIRED=true
+            OWNS_KIT=${kit_woodcutting}
+            break
+            ;;
+
+        9 | 'mining')
+            GUILD="mining"
+            GUILD_LVL=${mining_lvl}
+            GUILD_XP_TARGET=${mining_xp_target}
+            GUILD_XP_TOTAL=${mining_xp_total}
+
+            KIT_REQUIRED=true
+            OWNS_KIT=${kit_mining}
+            break
+            ;;
+
+        10 | 'smithing')
+            GUILD="smithing"
+            GUILD_LVL=${smithing_lvl}
+            GUILD_XP_TARGET=${smithing_xp_target}
+            GUILD_XP_TOTAL=${smithing_xp_total}
+
+            KIT_REQUIRED=true
+            OWNS_KIT=${kit_smithing}
+
+            MATERIAL_REQUIRED=true
+            MATERIAL_NAME="ore"
+            TOTAL_MATERIALS=${ore}
+            break
+            ;;
+
+        11 | exit)
+            game_menu
+            ;;
+
+        *)
+            PRINT
+            [[ -z "${scriptNumber}" ]] && {
+                PRINT "Canceling."
+                PAUSE
+                continue
+            }
+
+            [[ -n "${scriptNumber}" ]] && {
+                PRINT "Invalid option '${scriptNumber}'."
+                PAUSE
+                continue
+            }
+            ;;
+        esac
+    done
+
+    # Check if the guild requires a kit and the players has a kit
+    [[ $KIT_REQUIRED ]] && [[ ! $OWNS_KIT ]] && {
+        PRINT "You do not have the required kit."
+        PRINT "Please purchase it from guild store."
+        PAUSE
+        the_guilds
+    }
+
+    # Check if the guild requires materials and the player has some of it
+    [[ $MATERIAL_REQUIRED ]] && [[ $TOTAL_MATERIALS -eq 0 ]] && {
+        PRINT "You do not have enough materials."
+        PRINT "Please obtain some '${MATERIAL_NAME}'."
+        PAUSE
+        the_guilds
+    }
+
+    while [[ $EXIT -ne 0 ]]; do
+        HEADER
+        PRINT "Guild: ${GUILD}"
+        PRINT "Level: ${GUILD_LVL}"
+        PRINT "Target XP: ${GUILD_XP_TARGET}"
+        PRINT "Total XP: ${GUILD_XP_TOTAL}"
+        PRINT
+        [[ $MATERIAL_REQUIRED ]] && PRINT "${MATERIAL_NAME}: ${TOTAL_MATERIALS}"
+
+    done
 }
 
 ###################################################
