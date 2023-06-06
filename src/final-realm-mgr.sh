@@ -16,14 +16,14 @@ function LOWERCASE() {
 ###################################################
 project_folder="${HOME}/.local/share/final-realm"
 repository="${project_folder}/repository"
-
 game="/usr/share/bin/final-realm"
 mgr="/usr/share/bin/final-realm-mgr"
+EXIT=1
 
 ###################################################
 # [ Clone/Update local repository ] #
 ###################################################
-clone_or_update_repo() {
+function clone_or_update_repo() {
     REPO_EXISTS=false
     [[ -d "${repository}" ]] && REPO_EXISTS=true
 
@@ -38,7 +38,7 @@ clone_or_update_repo() {
 ###################################################
 # [ Install files ] #
 ###################################################
-install_files() {
+function install_files() {
     sudo install -m +x -t "${game}" "${repository}/final-realm.sh"
     sudo install -m +x -t "${mgr}" "${repository}/final-realm-mgr.sh"
 }
@@ -46,7 +46,7 @@ install_files() {
 ###################################################
 # [ Uninstall Final Realm ] #
 ###################################################
-uninstall_files() {
+function uninstall_files() {
     [[ -d "${project_folder}" ]] && rm -rf "${project_folder}"
     sudo rm -f "${game}"
     sudo rm -f "${mgr}"
