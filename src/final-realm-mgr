@@ -8,7 +8,7 @@ function PRINT() {
 }
 
 function PAUSE() {
-    read -r -p "PRESS <ENTER> TO CONTINUE..." throwaway
+    read -r -p "PRESS <ENTER> TO CONTINUE..."
 }
 
 function LOWERCASE() {
@@ -89,7 +89,7 @@ while [[ $EXIT -ne 0 ]]; do
     PRINT
     read -r -p "ID > " option
 
-    case "$(LOWERCASE ${option})" in
+    case "$(LOWERCASE "${option}")" in
     0 | 'exit')
         clear
         exit 0
