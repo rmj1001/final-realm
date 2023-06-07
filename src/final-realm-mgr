@@ -63,8 +63,8 @@ function install_files() {
 ###################################################
 function uninstall_files() {
     [[ -d "${project_folder}" ]] && rm -rf "${project_folder}"
-    sudo rm -f "${game}"
-    sudo rm -f "${mgr}"
+    rm -f "${game}"
+    rm -f "${mgr}"
 }
 
 ###################################################
