@@ -14,7 +14,7 @@ The following commands will manage the Final Realm Installation
 ### Final Realm is NOT installed
 
 ```bash
-bash <(wget -qO- https://raw.githubusercontent.com/rmj1001/final-realm/main/src/final-realm-mgr.sh)
+bash <(wget -qO- https://raw.githubusercontent.com/rmj1001/final-realm/main/src/final-realm-mgr)
 ```
 
 ### Final Realm IS installed
