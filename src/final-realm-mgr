@@ -70,50 +70,108 @@ function uninstall_files() {
 ###################################################
 # [ Manager Menu ] #
 ###################################################
-while [[ $EXIT -ne 0 ]]; do
-    clear
-    PRINT "#######################################################################################"
-    PRINT "# ███████ ██ ███    ██  █████  ██          ██████  ███████  █████  ██      ███    ███ #"
-    PRINT "# ██      ██ ████   ██ ██   ██ ██          ██   ██ ██      ██   ██ ██      ████  ████ #"
-    PRINT "# █████   ██ ██ ██  ██ ███████ ██          ██████  █████   ███████ ██      ██ ████ ██ #"
-    PRINT "# ██      ██ ██  ██ ██ ██   ██ ██          ██   ██ ██      ██   ██ ██      ██  ██  ██ #"
-    PRINT "# ██      ██ ██   ████ ██   ██ ███████     ██   ██ ███████ ██   ██ ███████ ██      ██ #"
-    PRINT "#######################################################################################"
-    PRINT
-    PRINT
-    PRINT "Please choose an option."
-    PRINT "1. Install or Upate"
-    PRINT "2. Uninstall"
-    PRINT
-    PRINT "0. Exit"
-    PRINT
-    read -r -p "ID > " option
-
-    case "$(LOWERCASE "${option}")" in
-    0 | 'exit')
+function interactiveMenu() {
+    while [[ $EXIT -ne 0 ]]; do
         clear
-        exit 0
-        ;;
-    1 | 'install or update' | 'install' | 'update')
-        clone_or_update_repo
-        install_files
-        PAUSE
-        continue
-        ;;
-    2 | 'uninstall')
-        uninstall_files
-        PAUSE
-        continue
-        ;;
-    *)
-        [[ -n "${option}" ]] && {
-            PRINT "Invalid option '${option}'."
+        PRINT "#######################################################################################"
+        PRINT "# ███████ ██ ███    ██  █████  ██          ██████  ███████  █████  ██      ███    ███ #"
+        PRINT "# ██      ██ ████   ██ ██   ██ ██          ██   ██ ██      ██   ██ ██      ████  ████ #"
+        PRINT "# █████   ██ ██ ██  ██ ███████ ██          ██████  █████   ███████ ██      ██ ████ ██ #"
+        PRINT "# ██      ██ ██  ██ ██ ██   ██ ██          ██   ██ ██      ██   ██ ██      ██  ██  ██ #"
+        PRINT "# ██      ██ ██   ████ ██   ██ ███████     ██   ██ ███████ ██   ██ ███████ ██      ██ #"
+        PRINT "#######################################################################################"
+        PRINT
+        PRINT
+        PRINT "Please choose an option."
+        PRINT "1. Install or Upate"
+        PRINT "2. Uninstall"
+        PRINT
+        PRINT "0. Exit"
+        PRINT
+        read -r -p "ID > " option
+
+        case "$(LOWERCASE "${option}")" in
+        0 | 'exit')
+            clear
+            exit 0
+            ;;
+        1 | 'install or update' | 'install' | 'update')
+            clone_or_update_repo
+            install_files
             PAUSE
             continue
-        }
+            ;;
+        2 | 'uninstall')
+            uninstall_files
+            PAUSE
+            continue
+            ;;
+        *)
+            [[ -n "${option}" ]] && {
+                PRINT "Invalid option '${option}'."
+                PAUSE
+                continue
+            }
 
-        PRINT "You must choose an option."
-        PAUSE
+            PRINT "You must choose an option."
+            PAUSE
+            continue
+            ;;
+        esac
+
+    done
+}
+
+###################################################
+# [ Command line interface ] #
+###################################################
+[[ $# -le 0 ]] && {
+    interactiveMenu
+    exit 0
+}
+
+while [[ $# -gt 0 ]]; do
+    case "$1" in
+    --install | --update)
+        clone_or_update_repo
+        install_files
+        shift
+        continue
+        ;;
+    --uninstall)
+        uninstall_files
+        shift
+        continue
+        ;;
+    --interactive)
+        interactiveMenu
+        exit 0
+        ;;
+    \? | -h | --help)
+        echo "#######################################################################################"
+        echo "# ███████ ██ ███    ██  █████  ██          ██████  ███████  █████  ██      ███    ███ #"
+        echo "# ██      ██ ████   ██ ██   ██ ██          ██   ██ ██      ██   ██ ██      ████  ████ #"
+        echo "# █████   ██ ██ ██  ██ ███████ ██          ██████  █████   ███████ ██      ██ ████ ██ #"
+        echo "# ██      ██ ██  ██ ██ ██   ██ ██          ██   ██ ██      ██   ██ ██      ██  ██  ██ #"
+        echo "# ██      ██ ██   ████ ██   ██ ███████     ██   ██ ███████ ██   ██ ███████ ██      ██ #"
+        echo "#######################################################################################"
+        echo
+        echo "${0##*/} - Manage the installation for the Final Realm game."
+        echo
+        echo "Flags:"
+        echo -e "--install\t\tInstall the Final Realm game."
+        echo -e "--update\t\tUpdate the Final Realm game."
+        echo -e "--uninstall\t\tUninstall the Final Realm game"
+        echo
+        echo -e "--interactive\t\tShow the interactive menu instead."
+        echo
+        echo "Tip: Just run '${0##*/}' in the terminal to use an interactive menu."
+        echo
+        exit 0
+        ;;
+    *)
+        echo "${0##*/}: Invalid command '${1}'."
+        shift
         continue
         ;;
     esac
